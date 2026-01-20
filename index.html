@@ -126,6 +126,15 @@
         body.reading-mode * { background-image: none !important; text-shadow: none !important; box-shadow: none !important; border-color: #444 !important; }
         body.reading-mode .text-gold-gradient, body.reading-mode .text-blue-metallic { color: #fff !important; -webkit-background-clip: unset !important; background: none !important; }
 
+        .view-section { transition: opacity 0.5s ease-in-out; }
+        .hidden-view { display: none !important; opacity: 0; }
+        .active-view { display: block !important; opacity: 1; animation: fadeIn 0.5s forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .cart-badge { position: absolute; top: -5px; right: -5px; background-color: #ff0000; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        #cart-modal { transition: transform 0.3s ease-in-out; transform: translateX(100%); }
+        #cart-modal.open { transform: translateX(0); }
+
         .cursor-pointer { cursor: pointer; }
 
         @media print {
@@ -138,166 +147,177 @@
 </head>
 <body class="font-roboto antialiased selection:bg-royal-gold selection:text-black pb-32">
 
-    <!-- Navegación EPK -->
-    <nav class="fixed w-full z-50 bg-black/95 backdrop-blur-md border-b border-royal-blue-metal/50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-3xl font-oswald font-bold text-gold-gradient tracking-widest">ROYAL CLUB</a>
-            <div class="hidden md:flex space-x-6 text-xs lg:text-sm font-bold tracking-widest uppercase items-center">
-                <a href="#bio" class="hover:text-royal-blue-light transition">Biografía</a>
-                <a href="#music-player" class="hover:text-royal-blue-light transition">Música</a>
-                <a href="#discografia" class="hover:text-royal-blue-light transition">Discografía</a>
-                <a href="#assets" class="hover:text-royal-blue-light transition">Descargas</a>
-                <a href="#contacto" class="px-4 py-2 border border-royal-blue-metal bg-royal-blue-metal text-white hover:bg-white hover:text-black transition duration-300">Contratar</a>
-                <button onclick="toggleReadingMode()" class="ml-4 text-gray-400 hover:text-white" title="Modo Staff"><i class="fa-solid fa-eye"></i></button>
-            </div>
-            <button id="mobile-menu-btn" class="md:hidden text-royal-gold text-2xl"><i class="fa-solid fa-bars"></i></button>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-royal-blue-metal absolute w-full h-screen z-40">
-            <div class="flex flex-col items-center py-12 space-y-6 font-oswald text-2xl">
-                <a href="#bio" class="mobile-link text-white">Biografía</a>
-                <a href="#music-player" class="mobile-link text-white">Música</a>
-                <a href="#discografia" class="mobile-link text-white">Discografía</a>
-                <a href="#assets" class="mobile-link text-white">Descargas</a>
-                <a href="#contacto" class="mobile-link text-royal-blue-metal font-bold">Cotizar</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero -->
-    <header id="hero" class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat overflow-hidden">
-        <div id="hero-overlay" class="absolute inset-0 bg-gradient-to-t from-dark-bg via-royal-navy/50 to-transparent"></div>
-        <div class="relative z-10 text-center px-4 max-w-6xl mx-auto reveal active">
-            <p class="text-royal-blue-light font-bold tracking-[0.3em] mb-4 text-sm md:text-lg animate-pulse uppercase">Desde 1994</p>
-            <h1 class="text-6xl md:text-8xl lg:text-9xl font-oswald font-bold text-gold-gradient mb-4 drop-shadow-2xl leading-none">ROYAL CLUB</h1>
-            <h2 class="text-xl md:text-3xl text-gray-200 font-oswald font-light uppercase tracking-widest border-y border-royal-blue-metal py-4 inline-block mb-8">30 Años de Ska, Fuerza, Corazón y Resistencia</h2>
-            <div class="flex flex-col md:flex-row justify-center gap-6 mt-8">
-                <a href="#contacto" class="px-8 py-4 bg-royal-gold text-black font-bold font-oswald text-lg uppercase hover:bg-white transition duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)]">Contratar Ahora</a>
-                <a href="#assets" class="px-8 py-4 border-2 border-royal-blue-metal text-white font-bold font-oswald text-lg uppercase hover:bg-royal-blue-metal hover:text-white transition duration-300 shadow-[0_0_15px_rgba(30,58,138,0.5)]">Descargar EPK</a>
-            </div>
-        </div>
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-royal-gold"><i class="fa-solid fa-chevron-down text-3xl"></i></div>
-    </header>
-
-    <!-- Biografía Completa -->
-    <section id="bio" class="py-20 bg-dark-bg relative border-b border-royal-blue-metal/30">
-        <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-start">
-                <div class="reveal-left relative">
-                    <div class="flex justify-between items-baseline mb-4">
-                        <h3 class="text-royal-blue-light font-oswald text-xl uppercase tracking-widest">Biografía</h3>
-                        <button onclick="copyBio()" class="text-xs border border-gray-600 px-2 py-1 rounded hover:bg-white hover:text-black transition"><i class="fa-regular fa-copy"></i> Copiar</button>
-                    </div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">El Club de la <span class="text-gold-gradient">Realeza</span></h2>
-                    
-                    <div id="bio-text" class="prose prose-lg prose-invert text-gray-300 font-light text-justify leading-relaxed">
-                        <p class="mb-6">El corazón y la esencia de <strong class="text-royal-gold">ROYAL CLUB</strong> nace en la colonia <strong>"San Felipe de Jesús"</strong> en la Ciudad de México, un lugar donde a diario se convertía una fiesta llena de color y música; en donde en el mismo se crea nuestro propio <strong class="text-royal-gold">"CLUB DE LA REALEZA"</strong> en el que no se necesitaban los grandes lujos, joyas y riquezas para ser felices, fue ahí donde entonces comenzamos a musicalizar las historias vividas, sucesos que daban un impacto en la sociedad que se vivía y se respiraba en los alrededores. Donde era escribir y escribir, hasta que finalmente se inicio con “Su majestad”,”Una más de violenciaʼʼ,ʻʼNo volverasʼʼ y ʻʼTu cabezaʼʼ.</p>
-                        <p>Desde 1994 ROYAL CLUB ha tenido algunas modificaciones en el nombre al igual que en integrantes, sin embargo la mayoría de las composiciones en las canciones son de <strong class="text-white">Rafael Montoya</strong>, quien es líder de la banda y esta misma se consolida de la alineación actual en su mayoría con más de 20 años, Rubén Franco, Javier González, Alejandro García Cano, Jesús Vázquez, Yael Ruiz y Tonatiuh Herrera.</p>
-                    </div>
-                    <div id="copy-feedback" class="absolute top-0 right-0 bg-green-600 text-white text-xs px-2 py-1 rounded opacity-0 transition">¡Copiado!</div>
+    <!-- VISTA EPK -->
+    <div id="epk-view" class="active-view view-section">
+        
+        <nav class="fixed w-full z-50 bg-black/95 backdrop-blur-md border-b border-royal-blue-metal/50">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#" class="text-3xl font-oswald font-bold text-gold-gradient tracking-widest">ROYAL CLUB</a>
+                <div class="hidden md:flex space-x-6 text-xs lg:text-sm font-bold tracking-widest uppercase items-center">
+                    <a href="#bio" class="hover:text-royal-blue-light transition">Biografía</a>
+                    <a href="#music-player" class="hover:text-royal-blue-light transition">Música</a>
+                    <button onclick="toggleStore(true)" class="text-royal-gold border border-royal-gold px-3 py-1 hover:bg-royal-gold hover:text-black transition"><i class="fa-solid fa-shop"></i> Tienda</button>
+                    <a href="#discografia" class="hover:text-royal-blue-light transition">Discografía</a>
+                    <a href="#assets" class="hover:text-royal-blue-light transition">Descargas</a>
+                    <a href="#contacto" class="px-4 py-2 border border-royal-blue-metal bg-royal-blue-metal text-white hover:bg-white hover:text-black transition duration-300">Contratar</a>
+                    <button onclick="toggleReadingMode()" class="ml-4 text-gray-400 hover:text-white" title="Modo Staff"><i class="fa-solid fa-eye"></i></button>
                 </div>
+                <!-- Botón de Modo Lectura en Móvil -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleReadingMode()" class="text-gray-400 hover:text-white text-xl" title="Modo Staff"><i class="fa-solid fa-eye"></i></button>
+                    <button id="mobile-menu-btn" class="text-royal-gold text-2xl"><i class="fa-solid fa-bars"></i></button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-royal-blue-metal absolute w-full h-screen z-40">
+                <div class="flex flex-col items-center py-12 space-y-6 font-oswald text-2xl">
+                    <a href="#bio" class="mobile-link text-white">Biografía</a>
+                    <a href="#music-player" class="mobile-link text-white">Música</a>
+                    <button onclick="toggleStore(true)" class="text-royal-gold font-bold border-2 border-royal-gold px-6 py-2">IR A LA TIENDA</button>
+                    <a href="#discografia" class="mobile-link text-white">Discografía</a>
+                    <a href="#assets" class="mobile-link text-white">Descargas</a>
+                    <a href="#contacto" class="mobile-link text-royal-blue-metal font-bold">Cotizar</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <header id="hero" class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat overflow-hidden">
+            <div id="hero-overlay" class="absolute inset-0 bg-gradient-to-t from-dark-bg via-royal-navy/50 to-transparent"></div>
+            <div class="relative z-10 text-center px-4 max-w-6xl mx-auto reveal active">
+                <p class="text-royal-blue-light font-bold tracking-[0.3em] mb-4 text-sm md:text-lg animate-pulse uppercase">Desde 1994</p>
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-oswald font-bold text-gold-gradient mb-4 drop-shadow-2xl leading-none">ROYAL CLUB</h1>
+                <h2 class="text-xl md:text-3xl text-gray-200 font-oswald font-light uppercase tracking-widest border-y border-royal-blue-metal py-4 inline-block mb-8">30 Años de Ska, Fuerza, Corazón y Resistencia</h2>
+                <div class="flex flex-col md:flex-row justify-center gap-6 mt-8">
+                    <a href="#contacto" class="px-8 py-4 bg-royal-gold text-black font-bold font-oswald text-lg uppercase hover:bg-white transition duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)]">Contratar Ahora</a>
+                    <a href="#assets" class="px-8 py-4 border-2 border-royal-blue-metal text-white font-bold font-oswald text-lg uppercase hover:bg-royal-blue-metal hover:text-white transition duration-300 shadow-[0_0_15px_rgba(30,58,138,0.5)]">Descargar EPK</a>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-royal-gold"><i class="fa-solid fa-chevron-down text-3xl"></i></div>
+        </header>
+
+        <!-- Biografía Completa -->
+        <section id="bio" class="py-20 bg-dark-bg relative border-b border-royal-blue-metal/30">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-start">
+                    <div class="reveal-left relative">
+                        <div class="flex justify-between items-baseline mb-4">
+                            <h3 class="text-royal-blue-light font-oswald text-xl uppercase tracking-widest">Biografía</h3>
+                            <button onclick="copyBio()" class="text-xs border border-gray-600 px-2 py-1 rounded hover:bg-white hover:text-black transition"><i class="fa-regular fa-copy"></i> Copiar</button>
+                        </div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">El Club de la <span class="text-gold-gradient">Realeza</span></h2>
+                        
+                        <div id="bio-text" class="prose prose-lg prose-invert text-gray-300 font-light text-justify leading-relaxed">
+                            <p class="mb-6">El corazón y la esencia de <strong class="text-royal-gold">ROYAL CLUB</strong> nace en la colonia <strong>"San Felipe de Jesús"</strong> en la Ciudad de México, un lugar donde a diario se convertía una fiesta llena de color y música; en donde en el mismo se crea nuestro propio <strong class="text-royal-gold">"CLUB DE LA REALEZA"</strong> en el que no se necesitaban los grandes lujos, joyas y riquezas para ser felices, fue ahí donde entonces comenzamos a musicalizar las historias vividas, sucesos que daban un impacto en la sociedad que se vivía y se respiraba en los alrededores. Donde era escribir y escribir, hasta que finalmente se inicio con “Su majestad”,”Una más de violenciaʼʼ,ʻʼNo volverasʼʼ y ʻʼTu cabezaʼʼ.</p>
+                            <p>Desde 1994 ROYAL CLUB ha tenido algunas modificaciones en el nombre al igual que en integrantes, sin embargo la mayoría de las composiciones en las canciones son de <strong class="text-white">Rafael Montoya</strong>, quien es líder de la banda y esta misma se consolida de la alineación actual en su mayoría con más de 20 años, Rubén Franco, Javier González, Alejandro García Cano, Jesús Vázquez, Yael Ruiz y Tonatiuh Herrera.</p>
+                        </div>
+                        <div id="copy-feedback" class="absolute top-0 right-0 bg-green-600 text-white text-xs px-2 py-1 rounded opacity-0 transition">¡Copiado!</div>
+                    </div>
+                    
+                    <div class="relative reveal mt-12 lg:mt-0">
+                         <div class="border-2 border-royal-gold p-4 relative bg-royal-navy/20">
+                            <div class="absolute -top-3 -left-3 w-8 h-8 border-t-4 border-l-4 border-royal-blue-metal"></div>
+                            <div class="absolute -bottom-3 -right-3 w-8 h-8 border-b-4 border-r-4 border-royal-blue-metal"></div>
+                            <div class="bg-gradient-to-br from-gray-900 to-black aspect-[4/3] flex flex-col items-center justify-center p-8 text-center border border-gray-800">
+                                 <img src="INTEGRANTES/lider.jpg" alt="Rafael Montoya" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                                 <div class="hidden flex-col items-center">
+                                     <i class="fa-solid fa-crown text-6xl text-royal-gold mb-4"></i>
+                                     <h4 class="text-2xl font-oswald text-white uppercase">Rafael Montoya</h4>
+                                     <p class="text-royal-blue-light uppercase tracking-widest text-sm">Líder y Compositor</p>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: Reproductor de Música (Lista Mejorada + Player ESTÁTICO) -->
+        <section id="music-player" class="py-20 bg-zinc-900 border-b border-royal-blue-metal/30">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-oswald font-bold text-center text-white mb-12 uppercase">ROLAS <span class="text-gold-gradient">DESTACADAS</span></h2>
                 
-                <div class="relative reveal mt-12 lg:mt-0">
-                     <div class="border-2 border-royal-gold p-4 relative bg-royal-navy/20">
-                        <div class="absolute -top-3 -left-3 w-8 h-8 border-t-4 border-l-4 border-royal-blue-metal"></div>
-                        <div class="absolute -bottom-3 -right-3 w-8 h-8 border-b-4 border-r-4 border-royal-blue-metal"></div>
-                        <div class="bg-gradient-to-br from-gray-900 to-black aspect-[4/3] flex flex-col items-center justify-center p-8 text-center border border-gray-800">
-                             <img src="INTEGRANTES/lider.jpg" alt="Rafael Montoya" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                             <div class="hidden flex-col items-center">
-                                 <i class="fa-solid fa-crown text-6xl text-royal-gold mb-4"></i>
-                                 <h4 class="text-2xl font-oswald text-white uppercase">Rafael Montoya</h4>
-                                 <p class="text-royal-blue-light uppercase tracking-widest text-sm">Líder y Compositor</p>
+                <div class="max-w-4xl mx-auto bg-black/60 backdrop-blur border border-royal-blue-metal p-6 md:p-8 rounded-2xl shadow-[0_0_50px_rgba(30,58,138,0.2)] reveal">
+                    <div class="flex items-center justify-between mb-6 border-b border-gray-800 pb-4">
+                        <span class="text-royal-gold font-oswald tracking-widest text-sm uppercase">Lista de Éxitos</span>
+                        <span class="text-gray-500 text-xs"><i class="fa-solid fa-music mr-1"></i> Archivos locales en /musica</span>
+                    </div>
+
+                    <!-- Lista de Canciones -->
+                    <div class="space-y-1 h-80 overflow-y-auto pr-2 custom-scrollbar mb-8" id="track-list">
+                        
+                        <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Suda Mi Cuerpo', 'musica/Suda_Mi_Cuerpo.mp3', 'PORTADAS/Suda_Mi_Cuerpo.jpg', this)">
+                            <div class="flex items-center gap-4"><span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">01</span><span class="text-white font-bold group-hover:text-royal-blue-light transition">Suda Mi Cuerpo</span></div>
+                            <div class="flex items-center gap-3"><div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div><button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button></div>
+                        </div>
+
+                        <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Cenizas en el Mar', 'musica/Cenizas_en_el_Mar.mp3', 'PORTADAS/Cenizas_en_el_Mar.jpg', this)">
+                            <div class="flex items-center gap-4"><span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">02</span><span class="text-white font-bold group-hover:text-royal-blue-light transition">Cenizas en el Mar</span></div>
+                            <div class="flex items-center gap-3"><div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div><button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button></div>
+                        </div>
+
+                        <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Que Triste Saber', 'musica/Que_Triste_Saber.mp3', 'PORTADAS/Que_Triste_Saber.jpg', this)">
+                            <div class="flex items-center gap-4"><span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">03</span><span class="text-white font-bold group-hover:text-royal-blue-light transition">Que Triste Saber</span></div>
+                            <div class="flex items-center gap-3"><div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div><button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button></div>
+                        </div>
+
+                        <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Su Majestad', 'musica/Su_Majestad.mp3', 'PORTADAS/Su_Majestad.jpg', this)">
+                            <div class="flex items-center gap-4"><span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">04</span><span class="text-white font-bold group-hover:text-royal-blue-light transition">Su Majestad</span></div>
+                            <div class="flex items-center gap-3"><div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div><button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button></div>
+                        </div>
+
+                        <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Mujer Ska', 'musica/Mujer_Ska.mp3', 'PORTADAS/Mujer_Ska.jpg', this)">
+                            <div class="flex items-center gap-4"><span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">05</span><span class="text-white font-bold group-hover:text-royal-blue-light transition">Mujer Ska</span></div>
+                            <div class="flex items-center gap-3"><div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div><button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button></div>
+                        </div>
+
+                        <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('No Hemos Muerto', 'musica/No_Hemos_Muerto.mp3', 'PORTADAS/No_Hemos_Muerto.jpg', this)">
+                            <div class="flex items-center gap-4"><span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">06</span><span class="text-white font-bold group-hover:text-royal-blue-light transition">No Hemos Muerto</span></div>
+                            <div class="flex items-center gap-3"><div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div><button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button></div>
+                        </div>
+                    </div>
+
+                    <!-- ESTE ES EL REPRODUCTOR ESTÁTICO (INTEGRADO EN LA CAJA) -->
+                    <div class="bg-black/80 rounded-xl p-4 border border-royal-blue-metal/50 flex flex-col md:flex-row items-center justify-between gap-4 mt-4">
+                        <!-- Info Track & Disco -->
+                        <div class="flex items-center gap-4 w-full md:w-auto">
+                             <div class="w-16 h-16 rounded-full border-2 border-royal-gold shadow-lg spin-record spin-paused flex items-center justify-center relative bg-yellow-600" id="player-cover-container">
+                                <div class="absolute inset-0 rounded-full opacity-40 bg-[repeating-radial-gradient(#333_0px,#333_1px,transparent_1px,transparent_3px)]"></div>
+                                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/40 to-transparent"></div>
+                                <div class="w-6 h-6 bg-black rounded-full border border-royal-gold z-10 relative flex items-center justify-center">
+                                    <div class="w-1.5 h-1.5 bg-royal-gold rounded-full"></div>
+                                </div>
+                            </div>
+                            <div class="overflow-hidden">
+                                <h4 id="player-title" class="text-white font-bold text-sm md:text-base truncate">Royal Club</h4>
+                                <p id="player-status" class="text-royal-gold text-xs truncate">Listo para reproducir</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Controles -->
+                        <div class="flex flex-col items-center w-full md:flex-1 max-w-md">
+                            <div class="flex items-center gap-6 text-white text-xl mb-2">
+                                <button onclick="playPrev()" class="hover:text-royal-blue-light transition hover:scale-110"><i class="fa-solid fa-backward-step"></i></button>
+                                <button id="play-button" onclick="togglePlay()" class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:scale-110 transition shadow-[0_0_15px_rgba(255,255,255,0.5)]">
+                                    <i id="play-icon" class="fa-solid fa-play ml-1"></i>
+                                </button>
+                                <button onclick="playNext()" class="hover:text-royal-blue-light transition hover:scale-110"><i class="fa-solid fa-forward-step"></i></button>
+                            </div>
+                            <div class="w-full flex items-center gap-3 text-xs text-gray-400 font-mono">
+                                <span id="current-time">0:00</span>
+                                <input type="range" id="progress-bar" value="0" min="0" step="0.1" class="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                                <span id="duration-time">0:00</span>
+                            </div>
+                        </div>
+
+                        <!-- Volumen -->
+                        <div class="flex items-center gap-4 w-full md:w-auto justify-end">
+                             <div class="flex items-center gap-2 text-gray-400 text-xs">
+                                <i class="fa-solid fa-volume-high"></i>
+                                <input type="range" id="volume-control" min="0" max="1" step="0.1" value="1" class="w-20">
                              </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN: Reproductor de Música (Lista Mejorada) -->
-    <section id="music-player" class="py-20 bg-zinc-900 border-b border-royal-blue-metal/30">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-oswald font-bold text-center text-white mb-12 uppercase">REPRODUCTOR <span class="text-gold-gradient">OFICIAL</span></h2>
-            
-            <div class="max-w-4xl mx-auto bg-black/60 backdrop-blur border border-royal-blue-metal p-6 md:p-8 rounded-2xl shadow-[0_0_50px_rgba(30,58,138,0.2)] reveal">
-                <div class="flex items-center justify-between mb-6 border-b border-gray-800 pb-4">
-                    <span class="text-royal-gold font-oswald tracking-widest text-sm uppercase">Lista de Éxitos</span>
-                    <span class="text-gray-500 text-xs"><i class="fa-solid fa-music mr-1"></i> Archivos locales en /musica</span>
-                </div>
-
-                <div class="space-y-1 h-96 overflow-y-auto pr-2 custom-scrollbar" id="track-list">
-                    
-                    <!-- 1. Suda Mi Cuerpo -->
-                    <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Suda Mi Cuerpo', 'musica/Suda_Mi_Cuerpo.mp3', null, this)">
-                        <div class="flex items-center gap-4">
-                            <span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">01</span>
-                            <span class="text-white font-bold group-hover:text-royal-blue-light transition">Suda Mi Cuerpo</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div>
-                            <button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- 2. Cenizas en el Mar -->
-                    <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Cenizas en el Mar', 'musica/Cenizas_en_el_Mar.mp3', null, this)">
-                        <div class="flex items-center gap-4">
-                            <span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">02</span>
-                            <span class="text-white font-bold group-hover:text-royal-blue-light transition">Cenizas en el Mar</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div>
-                            <button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- 3. Que Triste Saber -->
-                    <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Que Triste Saber', 'musica/Que_Triste_Saber.mp3', null, this)">
-                        <div class="flex items-center gap-4">
-                            <span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">03</span>
-                            <span class="text-white font-bold group-hover:text-royal-blue-light transition">Que Triste Saber</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div>
-                            <button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- 4. Su Majestad -->
-                    <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Su Majestad', 'musica/Su_Majestad.mp3', null, this)">
-                        <div class="flex items-center gap-4">
-                            <span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">04</span>
-                            <span class="text-white font-bold group-hover:text-royal-blue-light transition">Su Majestad</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div>
-                            <button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- 5. Mujer Ska -->
-                    <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('Mujer Ska', 'musica/Mujer_Ska.mp3', null, this)">
-                        <div class="flex items-center gap-4">
-                            <span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">05</span>
-                            <span class="text-white font-bold group-hover:text-royal-blue-light transition">Mujer Ska</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div>
-                            <button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- 6. No Hemos Muerto -->
-                    <div class="track-item flex items-center justify-between p-4 hover:bg-white/5 rounded-lg group transition cursor-pointer border border-transparent hover:border-royal-gold/20" onclick="playTrack('No Hemos Muerto', 'musica/No_Hemos_Muerto.mp3', null, this)">
-                        <div class="flex items-center gap-4">
-                            <span class="track-status text-gray-600 font-bold text-xs w-6 text-center group-hover:text-royal-gold">06</span>
-                            <span class="text-white font-bold group-hover:text-royal-blue-light transition">No Hemos Muerto</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="visualizer hidden gap-1 h-4 items-end"><div class="equalizer-bar"></div><div class="equalizer-bar"></div><div class="equalizer-bar"></div></div>
-                            <button class="text-gray-500 group-hover:text-white transition"><i class="fa-regular fa-circle-play text-2xl"></i></button>
-                        </div>
-                    </div>
+                    <!-- FIN REPRODUCTOR ESTÁTICO -->
 
                 </div>
             </div>
@@ -344,7 +364,6 @@
                          <span class="bg-black px-3 py-1 border border-royal-blue-metal">Skuela de baile vol.1 y vol.2</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Puro Eskañol vol.3</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Skalando juntos reloade vol.1 y vol.2</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Homenaje Maldito vol.1 y vol.2</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Skaparate fest vol.2</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Soundtrack "Sexo, Pudor y Lagrimas"</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Maskatonians all-stars & Friends</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Con fuerza! - Sekta Core!</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Mar de Emociones - La Trenza</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">7 Años de Amistad - Los Korukos</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Satanas - La Monky Band</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Montones de mentira - Cantina Calavera</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Las clases del Cha Chaska Medley</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Puro Ska Meixicano</span><span class="bg-black px-3 py-1 border border-royal-blue-metal">Elementos - Tarzan</span>
                     </div>
 
-                     <!-- COLLAGE DE 9 FOTOS (3 en cel) -->
                      <div class="relative py-8">
                          <div class="grid grid-cols-3 gap-3 md:flex md:flex-wrap md:justify-center md:items-center md:gap-8 px-2 md:px-4">
                              <div class="collage-item relative w-full aspect-square md:w-48 md:h-48 border-2 md:border-4 border-white transform -rotate-6 z-10" onclick="openLightbox('COLABORACIONES/colab1.jpg')"><img src="COLABORACIONES/colab1.jpg" class="w-full h-full object-cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="img-placeholder"><i class="fa-solid fa-image"></i></div></div>
@@ -379,15 +398,9 @@
                         </div>
                     </div>
                     <div class="bg-black/80 backdrop-blur p-8 border border-royal-gold reveal text-justify">
-                        <p class="text-gray-300 text-lg mb-6 font-light leading-relaxed">
-                            <strong class="text-royal-blue-light">Ciudad de México — 24 de agosto de 2025.</strong> Royal Club formó parte de “De la Calle a la Arena: Trilogía del Kaos”, concierto realizado en la Arena Ciudad de México junto a Sekta Core y Out Of Control Army, en una noche que reunió a tres referentes del ska mexicano en un mismo escenario.
-                        </p>
-                        <p class="text-gray-300 text-lg mb-6 font-light leading-relaxed">
-                             El evento fue presentado públicamente como un encuentro de gran formato para la escena, con participación de integrantes de las bandas en actividades previas de anuncio y medios; por Royal Club estuvo <strong class="text-white">Rafael Montoya</strong>. La presentación en la Arena CDMX se dio después de un ciclo reciente de celebraciones y lanzamientos: en 2024, Royal Club conmemoró 30 años con un sold out en el Lunario del Auditorio Nacional y cerró ese periodo con el EP “El Umbral de lo Eterno”, que incluye el tema “Resistencia” con la colaboración de Dr. Shenka (Panteón Rococó) y producción asociada a Missael Oseguera.
-                        </p>
-                        <p class="text-gray-300 text-lg font-light leading-relaxed">
-                            Tras el concierto, coberturas y reseñas destacaron la magnitud del encuentro y la respuesta del público, subrayando el impacto de ver a Royal Club sostener su identidad y su base de seguidores en un formato de gran recinto, sin perder la energía de calle que ha caracterizado su trayectoria.
-                        </p>
+                        <p class="text-gray-300 text-lg mb-6 font-light leading-relaxed"><strong class="text-royal-blue-light">Ciudad de México — 24 de agosto de 2025.</strong> Royal Club formó parte de “De la Calle a la Arena: Trilogía del Kaos”, concierto realizado en la Arena Ciudad de México junto a Sekta Core y Out Of Control Army, en una noche que reunió a tres referentes del ska mexicano en un mismo escenario.</p>
+                        <p class="text-gray-300 text-lg mb-6 font-light leading-relaxed">El evento fue presentado públicamente como un encuentro de gran formato para la escena, con participación de integrantes de las bandas en actividades previas de anuncio y medios; por Royal Club estuvo <strong class="text-white">Rafael Montoya</strong>. La presentación en la Arena CDMX se dio después de un ciclo reciente de celebraciones y lanzamientos: en 2024, Royal Club conmemoró 30 años con un sold out en el Lunario del Auditorio Nacional y cerró ese periodo con el EP “El Umbral de lo Eterno”, que incluye el tema “Resistencia” con la colaboración de Dr. Shenka (Panteón Rococó) y producción asociada a Missael Oseguera.</p>
+                        <p class="text-gray-300 text-lg font-light leading-relaxed">Tras el concierto, coberturas y reseñas destacaron la magnitud del encuentro y la respuesta del público, subrayando el impacto de ver a Royal Club sostener su identidad y su base de seguidores en un formato de gran recinto, sin perder la energía de calle que ha caracterizado su trayectoria.</p>
                     </div>
                 </div>
              </div>
@@ -635,24 +648,35 @@
                         <div class="h-12 w-12 bg-royal-gold flex items-center justify-center rounded-full mb-4 text-black font-bold text-xl"><i class="fa-solid fa-vector-square"></i></div>
                         <h3 class="text-xl font-bold text-white mb-2">Logotipos</h3>
                         <p class="text-gray-400 text-sm mb-6">Vector (SVG) y PNG transparente.</p>
-                        <div class="flex gap-2"><button class="flex-1 bg-gray-800 py-2 text-xs rounded" onclick="openLightbox('logo_royal_club.png')">Ver</button><button class="flex-1 bg-royal-blue-metal py-2 text-xs rounded" onclick="downloadAsset('logo_royal_club.png')">Bajar</button></div>
+                        <div class="flex gap-2"><button class="flex-1 bg-gray-800 py-2 text-xs rounded" onclick="openLightbox('logo_royal_club.png')">Ver</button><button class="flex-1 bg-royal-blue-metal py-2 text-xs rounded" onclick="triggerDownload('logo_royal_club.png')">Bajar</button></div>
                     </div>
                     <div class="bg-black p-6 border border-gray-800 hover:border-royal-gold transition reveal" style="transition-delay: 100ms;">
                         <div class="h-12 w-12 bg-royal-platinum flex items-center justify-center rounded-full mb-4 text-black font-bold text-xl"><i class="fa-solid fa-camera"></i></div>
                         <h3 class="text-xl font-bold text-white mb-2">Fotos para Flyers</h3>
                         <p class="text-gray-400 text-sm mb-6">Alta resolución para carteles.</p>
-                        <div class="flex gap-2"><button class="flex-1 bg-gray-800 py-2 text-xs rounded" onclick="alert('Usa la galería abajo')">Ver</button><button class="flex-1 bg-royal-blue-metal py-2 text-xs rounded" onclick="downloadAsset('fotos_prensa.zip')">Bajar Pack</button></div>
+                        <div class="flex gap-2"><button class="flex-1 bg-gray-800 py-2 text-xs rounded" onclick="openLightbox('og-image.jpg')">Ver</button><button class="flex-1 bg-royal-blue-metal py-2 text-xs rounded" onclick="triggerDownload('fotos_prensa.zip')">Bajar Pack</button></div>
                     </div>
                     <div class="bg-black p-6 border border-gray-800 hover:border-royal-gold transition reveal" style="transition-delay: 200ms;">
                         <div class="h-12 w-12 bg-royal-navy border border-royal-blue-metal flex items-center justify-center rounded-full mb-4 text-white font-bold text-xl"><i class="fa-solid fa-sliders"></i></div>
                         <h3 class="text-xl font-bold text-white mb-2">Rider Técnico</h3>
                         <p class="text-gray-400 text-sm mb-6">Input list y requerimientos 2026.</p>
-                        <div class="flex gap-2"><button class="flex-1 bg-gray-800 py-2 text-xs rounded" onclick="alert('Abriendo PDF...')">Ver</button><button class="flex-1 bg-royal-blue-metal py-2 text-xs rounded" onclick="downloadAsset('rider_2026.pdf')">Bajar</button></div>
+                        <div class="flex gap-2"><button class="flex-1 bg-gray-800 py-2 text-xs rounded" onclick="window.open('DESCARGABLES/RIDER-ROYALCLUB.pdf', '_blank')">Ver</button><button class="flex-1 bg-royal-blue-metal py-2 text-xs rounded" onclick="triggerDownload('DESCARGABLES/RIDER-ROYALCLUB.pdf')">Bajar</button></div>
                     </div>
                 </div>
                 <div class="mt-12 text-center reveal">
-                    <button onclick="downloadAsset('RoyalClub_EPK_Full.zip')" class="bg-transparent border-2 border-royal-gold text-royal-gold px-8 py-3 font-bold hover:bg-royal-gold hover:text-black transition uppercase tracking-widest text-sm"><i class="fa-solid fa-file-zipper mr-2"></i> Descargar Full Press Kit (.zip)</button>
+                    <button onclick="triggerDownload('RoyalClub_EPK_Full.zip')" class="bg-transparent border-2 border-royal-gold text-royal-gold px-8 py-3 font-bold hover:bg-royal-gold hover:text-black transition uppercase tracking-widest text-sm"><i class="fa-solid fa-file-zipper mr-2"></i> Descargar Full Press Kit (.zip)</button>
                 </div>
+            </div>
+        </section>
+
+        <!-- Teaser de Tienda (Antes del contacto) -->
+        <section class="py-20 bg-black border-t border-royal-blue-metal">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-oswald font-bold text-white mb-6">MERCH <span class="text-royal-gold">OFICIAL</span></h2>
+                <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Adquiere playeras, discos, gorras y más productos oficiales de Royal Club. Envío a todo México.</p>
+                <button onclick="toggleStore(true)" class="bg-royal-gold text-black font-oswald font-bold px-12 py-4 text-xl hover:bg-white transition uppercase shadow-lg">
+                    <i class="fa-solid fa-store mr-2"></i> Ir a la Tienda
+                </button>
             </div>
         </section>
 
@@ -696,44 +720,108 @@
         </footer>
     </div> <!-- Fin EPK View -->
 
-    <!-- STICKY PLAYER -->
-    <div id="sticky-player" class="sticky-player p-4 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-4 w-full md:w-auto">
-            <div class="w-16 h-16 rounded-full border-2 border-royal-gold shadow-lg spin-record spin-paused flex items-center justify-center relative bg-yellow-600" id="player-cover-container">
-                <!-- Vinyl Grooves Texture -->
-                <div class="absolute inset-0 rounded-full opacity-40 bg-[repeating-radial-gradient(#333_0px,#333_1px,transparent_1px,transparent_3px)]"></div>
-                <!-- Shine effect -->
-                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/40 to-transparent"></div>
-                <!-- Center Label -->
-                <div class="w-6 h-6 bg-black rounded-full border border-royal-gold z-10 relative flex items-center justify-center">
-                    <div class="w-1.5 h-1.5 bg-royal-gold rounded-full"></div>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <h4 id="player-title" class="text-white font-bold text-sm md:text-base truncate">Royal Club</h4>
-                <p id="player-status" class="text-royal-gold text-xs truncate">Listo para reproducir</p>
-            </div>
-        </div>
-        <div class="flex flex-col items-center w-full md:flex-1 max-w-md">
-            <div class="flex items-center gap-6 text-white text-xl mb-2">
-                <button class="hover:text-royal-blue-light transition hover:scale-110"><i class="fa-solid fa-backward-step"></i></button>
-                <button onclick="togglePlay()" class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:scale-110 transition shadow-[0_0_15px_rgba(255,255,255,0.5)]">
-                    <i id="play-icon" class="fa-solid fa-play ml-1"></i>
+    <!-- ======================= VISTA SECUNDARIA: TIENDA ======================= -->
+    <div id="store-view" class="hidden-view view-section bg-black min-h-screen">
+        <!-- Header Tienda -->
+        <nav class="sticky top-0 z-50 bg-black/95 border-b border-royal-gold py-4 px-6 flex justify-between items-center">
+            <span class="text-2xl font-oswald font-bold text-gold-gradient">ROYAL CLUB <span class="text-white text-sm tracking-widest ml-2">STORE</span></span>
+            <div class="flex gap-4">
+                <button onclick="toggleCart()" class="text-white border border-white px-4 py-2 hover:bg-white hover:text-black transition text-sm font-bold uppercase relative">
+                    <i class="fa-solid fa-cart-shopping mr-2"></i> Carrito
+                    <span id="cart-count" class="cart-badge hidden">0</span>
                 </button>
-                <button class="hover:text-royal-blue-light transition hover:scale-110"><i class="fa-solid fa-forward-step"></i></button>
+                <button onclick="toggleStore(false)" class="text-white border border-white px-4 py-2 hover:bg-white hover:text-black transition text-sm font-bold uppercase"><i class="fa-solid fa-arrow-left mr-2"></i> Volver al EPK</button>
             </div>
-            <div class="w-full flex items-center gap-3 text-xs text-gray-400 font-mono">
-                <span id="current-time">0:00</span>
-                <input type="range" id="progress-bar" value="0" min="0" step="0.1" class="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer">
-                <span id="duration-time">0:00</span>
+        </nav>
+
+        <div class="container mx-auto px-6 py-12">
+            <h2 class="text-4xl font-oswald font-bold text-center text-white mb-4">CATÁLOGO <span class="text-royal-gold">OFICIAL</span></h2>
+            <p class="text-center text-gray-400 mb-12">Toca la imagen para ampliar. Agrega productos al carrito y finaliza por WhatsApp.</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="product-grid">
+                <!-- Producto 1 (Estático) -->
+                <div class="bg-zinc-900 p-4 border border-gray-800 group hover:border-royal-gold transition">
+                    <!-- IMAGEN CON ZOOM AL CLIC -->
+                    <div class="aspect-square bg-gray-800 mb-4 overflow-hidden relative cursor-pointer" onclick="openLightbox('merch1.jpg')">
+                        <img src="merch1.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.backgroundColor='#333'">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
+                            <i class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 transition text-3xl drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Playera 30 Años</h3><p class="text-royal-gold font-bold mb-3 text-xl">$250 MXN</p>
+                    <button onclick="addToCart('Playera 30 Años', 250)" class="w-full bg-royal-blue-metal text-white py-3 font-bold hover:bg-blue-700 rounded flex justify-center items-center gap-2"><i class="fa-solid fa-cart-plus"></i> AGREGAR</button>
+                </div>
+
+                <!-- Producto 2 (Estático) -->
+                <div class="bg-zinc-900 p-4 border border-gray-800 group hover:border-royal-gold transition">
+                    <!-- IMAGEN CON ZOOM AL CLIC -->
+                    <div class="aspect-square bg-gray-800 mb-4 overflow-hidden relative cursor-pointer" onclick="openLightbox('merch2.jpg')">
+                        <img src="merch2.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.backgroundColor='#333'">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
+                            <i class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 transition text-3xl drop-shadow-lg"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Disco "El Umbral"</h3><p class="text-royal-gold font-bold mb-3 text-xl">$150 MXN</p>
+                    <button onclick="addToCart('Disco El Umbral', 150)" class="w-full bg-royal-blue-metal text-white py-3 font-bold hover:bg-blue-700 rounded flex justify-center items-center gap-2"><i class="fa-solid fa-cart-plus"></i> AGREGAR</button>
+                </div>
+
+                <!-- Generador de 23 productos más -->
+                <script>
+                    const products = [
+                        { name: "Gorra Royal", price: 200 }, { name: "Pack Stickers", price: 50 },
+                        { name: "Sudadera Logo", price: 450 }, { name: "Taza Aniversario", price: 120 },
+                        { name: "Pin Metálico", price: 80 }, { name: "Poster Firmado", price: 100 },
+                        { name: "Vinilo Edición Limitada", price: 600 }, { name: "Bandana", price: 150 },
+                        { name: "Llavero", price: 60 }, { name: "Parche Bordado", price: 70 },
+                        { name: "Mochila", price: 350 }, { name: "Cubrebocas", price: 40 },
+                        { name: "Encendedor Zippo", price: 300 }, { name: "Set de Plumillas", price: 90 },
+                        { name: "Bandera", price: 250 }, { name: "Bufanda", price: 180 },
+                        { name: "Gorro Invierno", price: 180 }, { name: "Playera Manga Larga", price: 300 },
+                        { name: "Tank Top", price: 200 }, { name: "Hoodie Zip", price: 500 },
+                        { name: "Disco Su Majestad", price: 150 }, { name: "Disco 15 Años", price: 150 },
+                        { name: "Disco En Vivo", price: 150 }
+                    ];
+                    
+                    products.forEach((p, index) => {
+                        const imgName = `merch${index+3}.jpg`;
+                        document.write(`
+                        <div class="bg-zinc-900 p-4 border border-gray-800 group hover:border-royal-gold transition">
+                            <div class="aspect-square bg-gray-800 mb-4 overflow-hidden relative cursor-pointer" onclick="openLightbox('${imgName}')">
+                                <img src="${imgName}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.backgroundColor='#333'">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
+                                    <i class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 transition text-3xl drop-shadow-lg"></i>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-white text-lg">${p.name}</h3><p class="text-royal-gold font-bold mb-3 text-xl">$${p.price} MXN</p>
+                            <button onclick="addToCart('${p.name}', ${p.price})" class="w-full bg-royal-blue-metal text-white py-3 font-bold hover:bg-blue-700 rounded flex justify-center items-center gap-2"><i class="fa-solid fa-cart-plus"></i> AGREGAR</button>
+                        </div>
+                        `);
+                    });
+                </script>
             </div>
         </div>
-        <div class="flex items-center gap-4 w-full md:w-auto justify-end">
-             <div class="flex items-center gap-2 text-gray-400 text-xs">
-                <i class="fa-solid fa-volume-high"></i>
-                <input type="range" id="volume-control" min="0" max="1" step="0.1" value="1" class="w-20">
-             </div>
-             <button onclick="document.getElementById('sticky-player').classList.remove('visible'); if(currentAudio) currentAudio.pause();" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <footer class="bg-zinc-900 py-8 text-center text-gray-500 text-sm">
+            &copy; 2026 ROYAL CLUB STORE.
+        </footer>
+    </div> <!-- Fin Store View -->
+
+    <!-- CARRITO MODAL (SIDEBAR) -->
+    <div id="cart-modal" class="fixed top-0 right-0 h-full w-full md:w-96 bg-zinc-900 border-l border-royal-gold z-[60] shadow-2xl p-6 flex flex-col transform translate-x-full transition-transform duration-300">
+        <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
+            <h3 class="text-2xl font-oswald text-white">TU PEDIDO</h3>
+            <button onclick="toggleCart()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto space-y-4 mb-6">
+            <p class="text-gray-500 text-center mt-10">El carrito está vacío.</p>
+        </div>
+        <div class="border-t border-gray-700 pt-4">
+            <div class="flex justify-between items-center mb-4 text-xl font-bold text-white">
+                <span>Total:</span>
+                <span id="cart-total">$0 MXN</span>
+            </div>
+            <button onclick="checkout()" class="w-full bg-green-600 text-white py-3 font-bold hover:bg-green-500 rounded flex justify-center items-center gap-2 uppercase">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Finalizar Pedido
+            </button>
         </div>
     </div>
 
@@ -753,6 +841,25 @@
     </div>
 
     <script>
+        // --- LOGICA DE VISTAS (SPA) ---
+        function toggleStore(show) {
+            const epk = document.getElementById('epk-view');
+            const store = document.getElementById('store-view');
+            
+            if(show) {
+                epk.classList.remove('active-view');
+                epk.classList.add('hidden-view');
+                store.classList.remove('hidden-view');
+                store.classList.add('active-view');
+            } else {
+                store.classList.remove('active-view');
+                store.classList.add('hidden-view');
+                epk.classList.remove('hidden-view');
+                epk.classList.add('active-view');
+            }
+            window.scrollTo(0,0);
+        }
+
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -802,6 +909,15 @@
             document.body.removeChild(textArea);
         }
 
+        function triggerDownload(url) {
+            const anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.download = url.split('/').pop(); // Extrae el nombre del archivo
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        }
+
         function downloadAsset(filename) { alert(`Iniciando descarga de: ${filename}\n(Simulación)`); }
 
         // --- AUDIO PLAYER LOGIC ---
@@ -809,24 +925,53 @@
         let isPlaying = false;
         let currentVisualizer = null;
         let hasAutoPlayed = false;
+        
+        // Playlist Array for Navigation
+        const playlist = [
+            { title: 'Suda Mi Cuerpo', file: 'musica/Suda_Mi_Cuerpo.mp3', cover: 'PORTADAS/Suda_Mi_Cuerpo.jpg' },
+            { title: 'Cenizas en el Mar', file: 'musica/Cenizas_en_el_Mar.mp3', cover: 'PORTADAS/Cenizas_en_el_Mar.jpg' },
+            { title: 'Que Triste Saber', file: 'musica/Que_Triste_Saber.mp3', cover: 'PORTADAS/Que_Triste_Saber.jpg' },
+            { title: 'Su Majestad', file: 'musica/Su_Majestad.mp3', cover: 'PORTADAS/Su_Majestad.jpg' },
+            { title: 'Mujer Ska', file: 'musica/Mujer_Ska.mp3', cover: 'PORTADAS/Mujer_Ska.jpg' },
+            { title: 'No Hemos Muerto', file: 'musica/No_Hemos_Muerto.mp3', cover: 'PORTADAS/No_Hemos_Muerto.jpg' }
+        ];
+        
+        let currentTrackIndex = 0;
 
         // AUTOPLAY ON FIRST SCROLL
         function handleScrollAutoplay() {
             if (!hasAutoPlayed) {
                 hasAutoPlayed = true;
-                playTrack('Suda Mi Cuerpo', 'musica/Suda_Mi_Cuerpo.mp3', null, null); 
+                // Intenta reproducir la primera rola
+                const firstTrack = playlist[0];
+                // Find element in DOM to pass visualizer if needed, or pass null
+                const firstTrackEl = document.querySelector(`.track-item[onclick*="'${firstTrack.title}'"]`);
+                playTrack(firstTrack.title, firstTrack.file, firstTrack.cover, firstTrackEl); 
                 window.removeEventListener('scroll', handleScrollAutoplay);
             }
         }
         window.addEventListener('scroll', handleScrollAutoplay);
 
         function playTrack(songName, fileName, coverImage, element) {
-            const player = document.getElementById('sticky-player');
+            const player = document.getElementById('sticky-player'); // Although hidden in mobile view in older versions, here it is static in section
+            // Wait, user asked to remove sticky player and keep only static player in section.
+            // But code still has "sticky-player" ID for the static player in the section.
+            // Let's ensure we target the correct elements.
+            
+            // The static player inside #music-player section
             const title = document.getElementById('player-title');
             const status = document.getElementById('player-status');
             const btnIcon = document.getElementById('play-icon');
             const coverContainer = document.getElementById('player-cover-container');
+            const coverImg = document.getElementById('player-cover'); // Image inside the vinyl div if any
+            // Actually, static player uses CSS background or img inside?
+            // The code provided earlier for static player has an IMG inside #player-cover-container
+            
             const progressBar = document.getElementById('progress-bar');
+            
+            // Update Index based on songName if played from list click
+            const index = playlist.findIndex(t => t.title === songName);
+            if(index !== -1) currentTrackIndex = index;
 
             // Reset previous visualizer
             if (currentVisualizer) currentVisualizer.classList.add('hidden');
@@ -836,6 +981,18 @@
                     currentVisualizer = newVis;
                     currentVisualizer.classList.remove('hidden');
                 }
+            } else {
+                 // Try to find element if passed null (e.g. next/prev/autoplay)
+                 // Note: querySelector might fail with single quotes in title, handle carefully
+                 // Simplified lookup:
+                 const items = document.querySelectorAll('.track-item');
+                 if(items[currentTrackIndex]) {
+                     const newVis = items[currentTrackIndex].querySelector('.visualizer');
+                     if(newVis) {
+                         currentVisualizer = newVis;
+                         currentVisualizer.classList.remove('hidden');
+                     }
+                 }
             }
 
             if (title.innerText === songName && !currentAudio.paused) { togglePlay(); return; }
@@ -844,17 +1001,33 @@
             if (!currentAudio.paused) { currentAudio.pause(); currentAudio.currentTime = 0; }
 
             currentAudio.src = fileName; 
-
+            
+            // Update Cover if provided
+            // Note: The static player code has a specific structure. 
+            // It has an img with id="player-cover" inside #player-cover-container? 
+            // Let's double check the static player HTML structure in the provided code block above.
+            // Yes: <div ... id="player-cover-container"> ... <img ... id="player-cover" ...> ... </div>
+            // Wait, the static player HTML in the previous response actually didn't show an IMG tag for album art inside the vinyl div in one version, but let's assume standard behavior or fallback.
+            // In the provided code block for "ESTE ES EL REPRODUCTOR ESTÁTICO", it shows div structure for vinyl. It doesn't seem to have an `img` tag for album art *visible* or it might be overlayed?
+            // Actually, the previous code block for static player had a vinyl css effect but NO image tag for the specific cover was passed in the HTML structure shown in the prompt response block.
+            // Let's ensure the JS handles this. If there is no img#player-cover, we might need to add it or just rely on the vinyl effect. 
+            // However, the `playTrack` function tries to set `coverImg.src`. I will ensure the HTML includes the img tag or handle it gracefully.
+            // I will inject the img tag into the static player HTML to be safe.
+            
+            // Actually, better: I will use the vinyl effect style and maybe change the center label color or something, OR just insert the image.
+            // Given the user wants "Disco Dorado", maybe no image is needed, just the vinyl. 
+            // But if coverImage is passed, we might want to use it? 
+            // User said "quita la imagen de la portada de las rolas del reproductor y pon un disco dorado girando".
+            // So `coverImage` param is essentially ignored for the player display, but we keep the vinyl animation.
+            
             currentAudio.play().then(() => {
                 isPlaying = true;
-                player.classList.add('visible');
                 title.innerText = songName;
                 status.innerText = "Reproduciendo...";
                 btnIcon.classList.remove('fa-play'); btnIcon.classList.add('fa-pause');
                 coverContainer.classList.remove('spin-paused');
             }).catch(error => {
                 console.error("Error al reproducir:", error);
-                player.classList.add('visible');
                 title.innerText = songName;
                 status.innerText = "Listo para reproducir";
                 if(error.name !== "NotAllowedError") {
@@ -873,12 +1046,7 @@
             };
 
             currentAudio.onended = () => {
-                isPlaying = false;
-                btnIcon.classList.remove('fa-pause'); btnIcon.classList.add('fa-play');
-                status.innerText = "Finalizado";
-                progressBar.value = 0;
-                coverContainer.classList.add('spin-paused');
-                if(currentVisualizer) currentVisualizer.classList.add('hidden');
+                playNext(); // Auto play next
             };
         }
 
@@ -902,6 +1070,20 @@
                 coverContainer.classList.add('spin-paused');
             }
         }
+        
+        function playNext() {
+            currentTrackIndex++;
+            if (currentTrackIndex >= playlist.length) currentTrackIndex = 0; // Loop
+            const track = playlist[currentTrackIndex];
+            playTrack(track.title, track.file, track.cover, null);
+        }
+
+        function playPrev() {
+            currentTrackIndex--;
+            if (currentTrackIndex < 0) currentTrackIndex = playlist.length - 1; // Loop
+            const track = playlist[currentTrackIndex];
+            playTrack(track.title, track.file, track.cover, null);
+        }
 
         document.getElementById('progress-bar').addEventListener('input', function() {
             currentAudio.currentTime = this.value;
@@ -922,6 +1104,96 @@
             const type = document.getElementById('showType').value;
             const phone = "525549506090";
             const text = `Hola, me interesa contratar a ROYAL CLUB para un *${type}*. Me gustaría recibir información de costos y disponibilidad.`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // --- CARRITO ---
+        let cart = [];
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) { existingItem.quantity++; } else { cart.push({ name, price, quantity: 1 }); }
+            updateCartUI();
+            
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> AGREGADO';
+            btn.classList.remove('bg-royal-blue-metal'); btn.classList.add('bg-green-600');
+            setTimeout(() => { btn.innerHTML = originalText; btn.classList.add('bg-royal-blue-metal'); btn.classList.remove('bg-green-600'); }, 1000);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCountBadge = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems > 0) { cartCountBadge.classList.remove('hidden'); cartCountBadge.textContent = totalItems; } else { cartCountBadge.classList.add('hidden'); }
+
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center mt-10">El carrito está vacío.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const el = document.createElement('div');
+                    el.className = 'flex justify-between items-center bg-black p-3 rounded border border-gray-800';
+                    el.innerHTML = `
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${item.name}</h4>
+                            <p class="text-royal-gold text-xs">$${item.price} x ${item.quantity}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold text-white">$${itemTotal}</span>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-white"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(el);
+                });
+            }
+            cartTotal.textContent = `$${total} MXN`;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('open');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert("El carrito está vacío.");
+            
+            const phone = "525549506090";
+            let message = "Hola, me gustaría realizar el siguiente pedido de Merch Royal Club:\n\n";
+            let total = 0;
+            
+            cart.forEach(item => {
+                message += `- ${item.quantity}x ${item.name} ($${item.price * item.quantity})\n`;
+                total += item.price * item.quantity;
+            });
+            
+            message += `\n*TOTAL: $${total} MXN*`;
+            message += "\n\nQuedo pendiente para el pago y envío.";
+            
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+
+            // Limpiar carrito y cerrar modal
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        function orderMerch(productName) {
+            const phone = "525549506090";
+            const text = `Hola, quiero comprar merch de Royal Club: *${productName}*. ¿Tienen disponible?`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
