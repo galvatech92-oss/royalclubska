@@ -170,8 +170,48 @@
 </head>
 <body class="font-roboto antialiased selection:bg-royal-gold selection:text-black pb-32">
 
+    <div id="login-view" class="active-view view-section fixed inset-0 z-[200] bg-dark-bg flex flex-col items-center justify-center p-6 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+        
+        <div class="max-w-md w-full bg-black/80 backdrop-blur-md border border-royal-blue-metal p-8 rounded-2xl shadow-[0_0_50px_rgba(212,175,55,0.2)] text-center relative overflow-hidden">
+            
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-royal-blue-metal via-royal-gold to-royal-blue-metal"></div>
+
+            <div class="mb-8 flex justify-center">
+                <img src="LOGOS/logo_azul.png" alt="ROYAL CLUB" class="h-24 object-contain animate-pulse">
+            </div>
+
+            <h2 class="text-2xl font-oswald text-white uppercase mb-2">Acceso Restringido</h2>
+            <p class="text-gray-400 text-sm mb-6">Introduce la contraseña para ver el Press Kit.</p>
+
+            <div class="relative mb-6">
+                <i class="fa-solid fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-royal-gold"></i>
+                <input type="password" id="access-password" placeholder="Contraseña..." 
+                    class="w-full bg-zinc-900 border border-gray-700 text-white py-3 pl-12 pr-4 rounded focus:outline-none focus:border-royal-gold transition placeholder-gray-600 font-bold"
+                    onkeypress="handleLoginKey(event)">
+                <p id="login-error" class="text-red-500 text-xs mt-2 hidden"><i class="fa-solid fa-circle-exclamation"></i> Contraseña incorrecta</p>
+            </div>
+
+            <button onclick="checkLogin()" class="w-full bg-royal-gold text-black font-oswald font-bold py-3 text-lg uppercase hover:bg-white transition shadow-lg mb-4">
+                Entrar
+            </button>
+
+            <div class="relative flex py-2 items-center">
+                <div class="flex-grow border-t border-gray-700"></div>
+                <span class="flex-shrink mx-4 text-gray-500 text-xs">O VISITA LA TIENDA PÚBLICA</span>
+                <div class="flex-grow border-t border-gray-700"></div>
+            </div>
+
+            <button onclick="bypassToStore()" class="w-full border border-gray-600 text-gray-300 font-oswald py-2 text-sm uppercase hover:border-white hover:text-white transition mt-2">
+                <i class="fa-solid fa-shop mr-2"></i> Ir a la Store
+            </button>
+
+        </div>
+        
+        <p class="text-gray-600 text-xs mt-8">© 2026 Royal Club - Electronic Press Kit</p>
+    </div>
+
     <!-- VISTA EPK -->
-    <div id="epk-view" class="active-view view-section">
+    <div id="epk-view" class="hidden-view view-section">
         
         <nav class="fixed w-full z-50 bg-black/95 backdrop-blur-md border-b border-royal-blue-metal/50">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -1289,6 +1329,108 @@
     </div>
 
     <script>
+        // --- LÓGICA DE LOGIN ---
+        function checkLogin() {
+            const input = document.getElementById('access-password');
+            const errorMsg = document.getElementById('login-error');
+            const pass = "R0y4lC1ub.2026"; // Tu contraseña
+
+            if (input.value === pass) {
+                // Contraseña Correcta
+                const loginView = document.getElementById('login-view');
+                const epkView = document.getElementById('epk-view');
+                
+                // Ocultar Login
+                loginView.classList.remove('active-view');
+                loginView.classList.add('hidden-view');
+                
+                // Mostrar EPK
+                epkView.classList.remove('hidden-view');
+                epkView.classList.add('active-view');
+                
+                // Disparar animaciones de entrada del EPK
+                window.scrollTo(0,0);
+                setTimeout(reveal, 100); 
+            } else {
+                // Contraseña Incorrecta
+                errorMsg.classList.remove('hidden');
+                input.classList.add('border-red-500');
+                input.classList.remove('border-gray-700');
+                
+                // Animación de vibración (shake)
+                input.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-5px)' },
+                    { transform: 'translateX(5px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 300 });
+            }
+        }
+
+        function handleLoginKey(e) {
+            if (e.key === 'Enter') checkLogin();
+            // Limpiar error al escribir
+            document.getElementById('login-error').classList.add('hidden');
+            document.getElementById('access-password').classList.remove('border-red-500');
+        }
+
+        function bypassToStore() {
+            // Ir directamente a la tienda sin password
+            const loginView = document.getElementById('login-view');
+            const storeView = document.getElementById('store-view');
+            
+            loginView.classList.remove('active-view');
+            loginView.classList.add('hidden-view');
+            
+            storeView.classList.remove('hidden-view');
+            storeView.classList.add('active-view');
+        }
+
+        // Modificar toggleStore para que el botón "Volver" sepa a dónde ir
+        // (Pequeño ajuste a tu función existente)
+        const oldToggleStore = toggleStore; // Guardamos referencia
+        toggleStore = function(show) {
+            // Si estamos volviendo de la tienda (show = false)
+            // y el usuario NO se ha logueado (el login sigue ahí oculto o visible),
+            // debemos decidir si volver al Login o al EPK.
+            
+            // Para simplificar: Si ya entró a la tienda, asumimos que al volver
+            // quiere ver el EPK, pero si no tiene password, lo mandamos al login.
+            
+            const epk = document.getElementById('epk-view');
+            const store = document.getElementById('store-view');
+            const login = document.getElementById('login-view');
+
+            if (show) {
+                // Ir a tienda
+                epk.classList.remove('active-view');
+                epk.classList.add('hidden-view');
+                login.classList.remove('active-view'); // Asegurar que login se oculte
+                login.classList.add('hidden-view');
+                
+                store.classList.remove('hidden-view');
+                store.classList.add('active-view');
+            } else {
+                // Volver de tienda
+                store.classList.remove('active-view');
+                store.classList.add('hidden-view');
+                
+                // Verificar si ya metió el password antes (verificando si el EPK estaba visible antes)
+                // O simplemente mandarlo al Login si quiere ver el EPK
+                // TRUCO: Comprobamos si el input tiene el password correcto
+                const input = document.getElementById('access-password');
+                if (input.value === "R0y4lC1ub.2026") {
+                     epk.classList.remove('hidden-view');
+                     epk.classList.add('active-view');
+                } else {
+                     // Si no ha puesto password, de vuelta al login
+                     login.classList.remove('hidden-view');
+                     login.classList.add('active-view');
+                }
+            }
+            window.scrollTo(0,0);
+        }
+        
         // --- LOGICA DE VISTAS (SPA) ---
         function toggleStore(show) {
             const epk = document.getElementById('epk-view');
