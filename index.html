@@ -6,9 +6,9 @@
     
     <!-- SEO & Open Graph (Tarjetas Sociales) -->
     <title>ROYAL CLUB | Electronic Press Kit Oficial</title>
-    <meta name="description" content="Press Kit Oficial de Royal Club. 30 años de Ska, Fuerza, Corazón y Resistencia. Contrataciones, Discografía y Material de Prensa.">
+    <meta name="description" content="Press Kit Oficial de Royal Club. 32 años de Ska, Fuerza, Corazón y Resistencia. Contrataciones, Discografía y Material de Prensa.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="ROYAL CLUB - 30 Años de Ska">
+    <meta property="og:title" content="ROYAL CLUB - 32 Años de Ska">
     <meta property="og:image" content="og-image.jpg"> 
     <meta property="og:url" content="https://royalclub.mx"> 
 
@@ -138,10 +138,32 @@
         .cursor-pointer { cursor: pointer; }
 
         @media print {
-            body { background: white; color: black; }
-            nav, .sticky-player, #media, #hero-overlay, .collage-item, video, #mobile-menu-btn, .reveal { display: none !important; opacity: 1 !important; transform: none !important;}
-            section { page-break-inside: avoid; padding: 20px 0; }
-            .bg-dark-bg, .bg-black, .bg-zinc-900 { background: white !important; color: black !important; border: 1px solid #ccc; }
+            /* 1. Asegurar fondo blanco y texto negro para todo */
+            body { background-color: white !important; color: black !important; padding-bottom: 0; }
+            * { color: black !important; text-shadow: none !important; box-shadow: none !important; background: transparent !important; }
+
+            /* 2. Ocultar secciones no deseadas (Menú, Música, Tienda, Assets, Botones, Decoración) */
+            nav, .sticky-player, #media, #hero-overlay, .collage-item, video, #mobile-menu-btn, #music-player, #merch-teaser, #assets, button, #cart-modal, .equalizer-bar, #lightbox, #qr-modal { 
+                display: none !important; 
+            }
+
+            /* 3. CRÍTICO: Hacer visible el contenido animado */
+            .reveal, .reveal-left { 
+                opacity: 1 !important; 
+                transform: none !important; 
+                display: block !important; 
+            }
+
+            /* 4. Ajustes de layout para papel */
+            section { page-break-inside: auto; padding: 20px 0; page-break-after: auto; display: block !important; }
+            .bg-dark-bg, .bg-black, .bg-zinc-900 { border: none !important; }
+            
+            /* Ajuste específico para el Hero */
+            #hero { height: auto !important; min-height: 200px; padding-top: 2cm; }
+            h1 { font-size: 30pt !important; }
+            
+            /* Imágenes visibles */
+            img { max-width: 100% !important; filter: none !important; page-break-inside: avoid; }
         }
     </style>
 </head>
@@ -152,7 +174,11 @@
         
         <nav class="fixed w-full z-50 bg-black/95 backdrop-blur-md border-b border-royal-blue-metal/50">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-                <a href="#" class="text-3xl font-oswald font-bold text-gold-gradient tracking-widest">ROYAL CLUB</a>
+                <!-- LOGO ENCABEZADO REEMPLAZADO -->
+                <a href="#" class="hover:scale-105 transition-transform">
+                    <img src="LOGOS/logo_azul.png" alt="ROYAL CLUB" class="h-12 md:h-16 w-auto object-contain">
+                </a>
+                
                 <div class="hidden md:flex space-x-6 text-xs lg:text-sm font-bold tracking-widest uppercase items-center">
                     <a href="#bio" class="hover:text-royal-blue-light transition">Biografía</a>
                     <a href="#music-player" class="hover:text-royal-blue-light transition">Música</a>
@@ -186,10 +212,10 @@
             <div class="relative z-10 text-center px-4 max-w-6xl mx-auto reveal active">
                 <p class="text-royal-blue-light font-bold tracking-[0.3em] mb-4 text-sm md:text-lg animate-pulse uppercase">Desde 1994</p>
                 <h1 class="text-6xl md:text-8xl lg:text-9xl font-oswald font-bold text-gold-gradient mb-4 drop-shadow-2xl leading-none">ROYAL CLUB</h1>
-                <h2 class="text-xl md:text-3xl text-gray-200 font-oswald font-light uppercase tracking-widest border-y border-royal-blue-metal py-4 inline-block mb-8">30 Años de Ska, Fuerza, Corazón y Resistencia</h2>
+                <h2 class="text-xl md:text-3xl text-gray-200 font-oswald font-light uppercase tracking-widest border-y border-royal-blue-metal py-4 inline-block mb-8">32 Años de Ska, Fuerza, Corazón y Resistencia</h2>
                 <div class="flex flex-col md:flex-row justify-center gap-6 mt-8">
                     <a href="#contacto" class="px-8 py-4 bg-royal-gold text-black font-bold font-oswald text-lg uppercase hover:bg-white transition duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)]">Contratar Ahora</a>
-                    <a href="#assets" class="px-8 py-4 border-2 border-royal-blue-metal text-white font-bold font-oswald text-lg uppercase hover:bg-royal-blue-metal hover:text-white transition duration-300 shadow-[0_0_15px_rgba(30,58,138,0.5)]">Descargar EPK</a>
+                    <a href="#assets" class="px-8 py-4 border-2 border-royal-blue-metal text-white font-bold font-oswald text-lg uppercase hover:bg-royal-blue-metal hover:text-white transition duration-300 shadow-[0_0_15px_rgba(30,58,138,0.5)]">Descargar Assets</a>
                 </div>
             </div>
             <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-royal-gold"><i class="fa-solid fa-chevron-down text-3xl"></i></div>
@@ -374,6 +400,12 @@
         <section id="trayectoria" class="py-20 bg-black relative">
              <div class="container mx-auto px-6">
                 <h2 class="text-5xl font-oswald font-bold text-center text-white mb-16"><span class="text-gold-gradient">TRAYECTORIA</span></h2>
+                
+                <!-- FOTO AGREGADA 32 AÑOS -->
+                <div class="mb-16 reveal">
+                    <img src="LOGOS/LOGO_32ANOS.jpg" alt="Royal Club 32 Años" class="w-full max-w-4xl mx-auto shadow-2xl border-2 border-royal-gold rounded-lg">
+                </div>
+
                 <div class="grid lg:grid-cols-2 gap-12">
                      <div class="space-y-12 reveal-left">
                         <div class="bg-gray-900/50 p-8 border-l-4 border-royal-gold"><h3 class="text-2xl font-oswald font-bold text-royal-blue-light mb-4 uppercase">Giras Internacionales</h3><p class="text-gray-300 mb-4 text-justify">En el año del 2002 realizan una gira por Europa central (Agosto-Octubre) junto con Sekta Core, realizando más de 25 fechas en diferentes ciudades de Alemania y Austria, participando en grandes festivales como "THEATRON FESTIVAL" en Munich, Alemania y el "FOLKLORE IM" en Wiesbaden, Alemania.</p><p class="text-gray-300 text-justify">En 2023, Royal Club se presenta por primera vez en Bogotá Colombia, logrando un Sold Out en Casa Mamifera de Bogota y participando en el “Fusa Rock Festival” de Fusagasuga, Col. También como parte de la celebración de 30 años se logra por segunda vez una gira a Colombia con gran éxito.</p></div>
@@ -587,8 +619,8 @@
                         </div>
                     </div>
 
-                     <!-- 2011 (portada12.jpg) -->
-                     <div class="relative md:w-1/2 md:mr-auto pl-8 md:pl-0 md:pr-12 pb-16 reveal">
+                      <!-- 2011 (portada12.jpg) -->
+                      <div class="relative md:w-1/2 md:mr-auto pl-8 md:pl-0 md:pr-12 pb-16 reveal">
                         <div class="absolute left-0 md:left-auto md:-right-3 top-0 w-6 h-6 rounded-full bg-royal-blue-metal border-4 border-black z-10"></div>
                         <div class="flex flex-col md:flex-row-reverse gap-6 md:text-right">
                             <div class="flex-shrink-0 flex flex-col items-start md:items-end">
@@ -672,18 +704,261 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-oswald font-bold text-center text-white mb-12 uppercase">Press Kit & <span class="text-blue-metallic">Assets</span></h2>
                 <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- TARJETA 1: LOGOTIPOS (MODIFICADA CON LISTA) -->
                     <div class="bg-black p-6 border border-gray-800 hover:border-royal-gold transition reveal">
                         <div class="h-12 w-12 bg-royal-gold flex items-center justify-center rounded-full mb-4 text-black font-bold text-xl"><i class="fa-solid fa-vector-square"></i></div>
                         <h3 class="text-xl font-bold text-white mb-2">Logotipos</h3>
-                        <p class="text-gray-400 text-sm mb-6">Vector (SVG) y PNG transparente.</p>
-                        <div class="flex gap-2"><button class="flex-1 bg-gray-800 py-2 text-xs rounded" onclick="openLightbox('logo_royal_club.png')">Ver</button><button class="flex-1 bg-royal-blue-metal py-2 text-xs rounded" onclick="triggerDownload('logo_royal_club.png')">Bajar</button></div>
+                        <p class="text-gray-400 text-sm mb-4">Descarga versiones oficiales:</p>
+                        
+                        <div class="space-y-3">
+                            <!-- Logo 32 Años -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <i class="fa-solid fa-image text-royal-gold text-xs"></i> 
+                                    <span class="text-xs text-gray-300 truncate">Logo 32 Años</span>
+                                </div>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('LOGOS/LOGO_32ANOS.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('LOGOS/LOGO_32ANOS.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+                            <!-- Logo Azul -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <i class="fa-solid fa-image text-royal-blue-light text-xs"></i> 
+                                    <span class="text-xs text-gray-300 truncate">Logo Azul</span>
+                                </div>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('LOGOS/logo_azul.png')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('LOGOS/logo_azul.png')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+                            <!-- Logo Integrantes -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <i class="fa-solid fa-image text-gray-400 text-xs"></i> 
+                                    <span class="text-xs text-gray-300 truncate">Logo Integrantes</span>
+                                </div>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('LOGOS/LOGO_INTEGRANTES.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('LOGOS/LOGO_INTEGRANTES.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+                            <!-- Logo Integrantes Morado -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <i class="fa-solid fa-image text-purple-500 text-xs"></i> 
+                                    <span class="text-xs text-gray-300 truncate">Logo Integrantes Morado</span>
+                                </div>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('LOGOS/LOGO_INTEGRANTES_MORADO.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('LOGOS/LOGO_INTEGRANTES_MORADO.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+                            <!-- Logo Rojo -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <i class="fa-solid fa-image text-red-600 text-xs"></i> 
+                                    <span class="text-xs text-gray-300 truncate">Logo Rojo</span>
+                                </div>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('LOGOS/logo_rojo.png')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('LOGOS/logo_rojo.png')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+                            <!-- Logo Tradicional -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <i class="fa-solid fa-image text-white text-xs"></i> 
+                                    <span class="text-xs text-gray-300 truncate">Logo Tradicional</span>
+                                </div>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('LOGOS/logo_tradicional.png')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('LOGOS/logo_tradicional.png')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- TARJETA 2: FOTOS PRENSA (MODIFICADA CON LISTA) -->
                     <div class="bg-black p-6 border border-gray-800 hover:border-royal-gold transition reveal" style="transition-delay: 100ms;">
                         <div class="h-12 w-12 bg-royal-platinum flex items-center justify-center rounded-full mb-4 text-black font-bold text-xl"><i class="fa-solid fa-camera"></i></div>
                         <h3 class="text-xl font-bold text-white mb-2">Fotos para Flyers</h3>
-                        <p class="text-gray-400 text-sm mb-6">Alta resolución para carteles.</p>
-                        <div class="flex gap-2"><button class="flex-1 bg-gray-800 py-2 text-xs rounded" onclick="openLightbox('og-image.jpg')">Ver</button><button class="flex-1 bg-royal-blue-metal py-2 text-xs rounded" onclick="triggerDownload('fotos_prensa.zip')">Bajar Pack</button></div>
+                        <p class="text-gray-400 text-sm mb-4">Alta resolución para prensa:</p>
+                        
+                        <!-- Contenedor con scroll para las fotos -->
+                        <div class="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+                            
+                            <!-- Foto BAJO -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Bajo</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/BAJO.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/BAJO.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto DSCN0117 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">En Vivo (DSCN0117)</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/DSCN0117.JPG')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/DSCN0117.JPG')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto DSCN9997 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">En Vivo (DSCN9997)</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/DSCN9997.JPG')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/DSCN9997.JPG')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto GRUPAL -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Grupal 1</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/GRUPAL.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/GRUPAL.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto GRUPAL2 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Grupal 2</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/GRUPAL2.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/GRUPAL2.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto GUITARRA -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Guitarra</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/GUITARRA.JPG')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/GUITARRA.JPG')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto METALES -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Metales</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/METALES.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/METALES.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto PUBLICO -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Público 1</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/PUBLICO.JPG')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/PUBLICO.JPG')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto PUBLICO2 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Público 2</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/PUBLICO2.JPG')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/PUBLICO2.JPG')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto RAFA -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Rafa Montoya</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/RAFA.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/RAFA.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto RAFA1 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Rafa 1</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/RAFA1.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/RAFA1.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto RAFA2 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Rafa 2</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/RAFA2.jpg.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/RAFA2.jpg.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto RAFA3 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Rafa 3</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/RAFA3.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/RAFA3.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto RAFA4 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Rafa 4</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/RAFA4.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/RAFA4.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto RAFA5 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Rafa 5</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/RAFA5.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/RAFA5.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto RAFA6 -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Rafa 6</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/RAFA6.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/RAFA6.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto TROMBON -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Trombón</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/TROMBON.jpg')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/TROMBON.jpg')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Foto TROMPETA -->
+                            <div class="flex justify-between items-center bg-zinc-900 p-2 rounded border border-gray-800 hover:border-royal-gold/50 transition">
+                                <span class="text-xs text-gray-300 truncate">Trompeta</span>
+                                <div class="flex gap-3 shrink-0">
+                                    <button onclick="openLightbox('FOTOS_PRENSA/TROMPETA.JPG')" class="text-gray-400 hover:text-white" title="Ver"><i class="fa-solid fa-eye"></i></button>
+                                    <button onclick="triggerDownload('FOTOS_PRENSA/TROMPETA.JPG')" class="text-royal-blue-light hover:text-white" title="Descargar"><i class="fa-solid fa-download"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 pt-2 border-t border-gray-800 text-center">
+                                <button onclick="triggerDownload('pack_fotos_prensa.zip')" class="text-xs text-royal-gold hover:underline"><i class="fa-solid fa-file-zipper"></i> Descargar Todo (.zip)</button>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- TARJETA 3: RIDER (Sin cambios mayores) -->
                     <div class="bg-black p-6 border border-gray-800 hover:border-royal-gold transition reveal" style="transition-delay: 200ms;">
                         <div class="h-12 w-12 bg-royal-navy border border-royal-blue-metal flex items-center justify-center rounded-full mb-4 text-white font-bold text-xl"><i class="fa-solid fa-sliders"></i></div>
                         <h3 class="text-xl font-bold text-white mb-2">Rider Técnico</h3>
@@ -692,13 +967,13 @@
                     </div>
                 </div>
                 <div class="mt-12 text-center reveal">
-                    <button onclick="triggerDownload('RoyalClub_EPK_Full.zip')" class="bg-transparent border-2 border-royal-gold text-royal-gold px-8 py-3 font-bold hover:bg-royal-gold hover:text-black transition uppercase tracking-widest text-sm"><i class="fa-solid fa-file-zipper mr-2"></i> Descargar Full Press Kit (.zip)</button>
+                    <a href="RoyalClub_Assets_Full.zip" download target="_blank" class="inline-block bg-transparent border-2 border-royal-gold text-royal-gold px-8 py-3 font-bold hover:bg-royal-gold hover:text-black transition uppercase tracking-widest text-sm cursor-pointer"><i class="fa-solid fa-file-zipper mr-2"></i> Descargar Full Press Kit (.zip)</a>
                 </div>
             </div>
         </section>
 
         <!-- Teaser de Tienda (Antes del contacto) -->
-        <section class="py-20 bg-black border-t border-royal-blue-metal">
+        <section id="merch-teaser" class="py-20 bg-black border-t border-royal-blue-metal">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-4xl font-oswald font-bold text-white mb-6">MERCH <span class="text-royal-gold">OFICIAL</span></h2>
                 <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Adquiere playeras, discos, gorras y más productos oficiales de Royal Club. Envío a todo México.</p>
@@ -763,69 +1038,186 @@
         </nav>
 
         <div class="container mx-auto px-6 py-12">
-            <h2 class="text-4xl font-oswald font-bold text-center text-white mb-4">CATÁLOGO <span class="text-royal-gold">OFICIAL</span></h2>
-            <p class="text-center text-gray-400 mb-12">Toca la imagen para ampliar. Agrega productos al carrito y finaliza por WhatsApp.</p>
+            <h2 class="text-5xl font-oswald font-bold text-center text-white mb-4">CATÁLOGO <span class="text-royal-gold">OFICIAL</span></h2>
+            <p class="text-center text-gray-400 mb-12">Selecciona tu talla y agrega al carrito. Finaliza tu compra por WhatsApp.</p>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="product-grid">
-                <!-- Producto 1 (Estático) -->
-                <div class="bg-zinc-900 p-4 border border-gray-800 group hover:border-royal-gold transition">
-                    <!-- IMAGEN CON ZOOM AL CLIC -->
-                    <div class="aspect-square bg-gray-800 mb-4 overflow-hidden relative cursor-pointer" onclick="openLightbox('merch1.jpg')">
-                        <img src="merch1.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.backgroundColor='#333'">
-                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 transition text-3xl drop-shadow-lg"></i>
-                        </div>
+            <!-- GRID DE PRODUCTOS (Diseño 3 columnas arriba, 2 centradas abajo) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center" id="product-grid">
+                
+                <!-- 1. PLAYERA 30 AÑOS -->
+                <div class="bg-zinc-900 border border-gray-800 group hover:border-royal-gold transition-all duration-500 rounded-xl overflow-hidden flex flex-col relative product-card" id="prod-playera">
+                    <div class="aspect-square bg-gray-800 relative cursor-pointer overflow-hidden" onclick="openLightbox('MERCH/PLAYERAS/P1.jpeg')">
+                        <img src="MERCH/PLAYERAS/P1.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.style.backgroundColor='#333'">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition"></div>
+                        <div class="absolute top-4 right-4 bg-royal-gold text-black font-bold px-3 py-1 text-sm rounded shadow-lg">$300</div>
                     </div>
-                    <h3 class="font-bold text-white text-lg">Playera 30 Años</h3><p class="text-royal-gold font-bold mb-3 text-xl">$250 MXN</p>
-                    <button onclick="addToCart('Playera 30 Años', 250)" class="w-full bg-royal-blue-metal text-white py-3 font-bold hover:bg-blue-700 rounded flex justify-center items-center gap-2"><i class="fa-solid fa-cart-plus"></i> AGREGAR</button>
-                </div>
-
-                <!-- Producto 2 (Estático) -->
-                <div class="bg-zinc-900 p-4 border border-gray-800 group hover:border-royal-gold transition">
-                    <!-- IMAGEN CON ZOOM AL CLIC -->
-                    <div class="aspect-square bg-gray-800 mb-4 overflow-hidden relative cursor-pointer" onclick="openLightbox('merch2.jpg')">
-                        <img src="merch2.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.backgroundColor='#333'">
-                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                            <i class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 transition text-3xl drop-shadow-lg"></i>
-                        </div>
-                    </div>
-                    <h3 class="font-bold text-white text-lg">Disco "El Umbral"</h3><p class="text-royal-gold font-bold mb-3 text-xl">$150 MXN</p>
-                    <button onclick="addToCart('Disco El Umbral', 150)" class="w-full bg-royal-blue-metal text-white py-3 font-bold hover:bg-blue-700 rounded flex justify-center items-center gap-2"><i class="fa-solid fa-cart-plus"></i> AGREGAR</button>
-                </div>
-
-                <!-- Generador de 23 productos más -->
-                <script>
-                    const products = [
-                        { name: "Gorra Royal", price: 200 }, { name: "Pack Stickers", price: 50 },
-                        { name: "Sudadera Logo", price: 450 }, { name: "Taza Aniversario", price: 120 },
-                        { name: "Pin Metálico", price: 80 }, { name: "Poster Firmado", price: 100 },
-                        { name: "Vinilo Edición Limitada", price: 600 }, { name: "Bandana", price: 150 },
-                        { name: "Llavero", price: 60 }, { name: "Parche Bordado", price: 70 },
-                        { name: "Mochila", price: 350 }, { name: "Cubrebocas", price: 40 },
-                        { name: "Encendedor Zippo", price: 300 }, { name: "Set de Plumillas", price: 90 },
-                        { name: "Bandera", price: 250 }, { name: "Bufanda", price: 180 },
-                        { name: "Gorro Invierno", price: 180 }, { name: "Playera Manga Larga", price: 300 },
-                        { name: "Tank Top", price: 200 }, { name: "Hoodie Zip", price: 500 },
-                        { name: "Disco Su Majestad", price: 150 }, { name: "Disco 15 Años", price: 150 },
-                        { name: "Disco En Vivo", price: 150 }
-                    ];
                     
-                    products.forEach((p, index) => {
-                        const imgName = `merch${index+3}.jpg`;
-                        document.write(`
-                        <div class="bg-zinc-900 p-4 border border-gray-800 group hover:border-royal-gold transition">
-                            <div class="aspect-square bg-gray-800 mb-4 overflow-hidden relative cursor-pointer" onclick="openLightbox('${imgName}')">
-                                <img src="${imgName}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.style.backgroundColor='#333'">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center">
-                                    <i class="fa-solid fa-magnifying-glass-plus text-white opacity-0 group-hover:opacity-100 transition text-3xl drop-shadow-lg"></i>
-                                </div>
-                            </div>
-                            <h3 class="font-bold text-white text-lg">${p.name}</h3><p class="text-royal-gold font-bold mb-3 text-xl">$${p.price} MXN</p>
-                            <button onclick="addToCart('${p.name}', ${p.price})" class="w-full bg-royal-blue-metal text-white py-3 font-bold hover:bg-blue-700 rounded flex justify-center items-center gap-2"><i class="fa-solid fa-cart-plus"></i> AGREGAR</button>
+                    <!-- Miniaturas -->
+                    <div class="flex gap-2 p-4 pb-0 overflow-x-auto custom-scrollbar">
+                        <img src="MERCH/PLAYERAS/P2.jpeg" class="w-14 h-14 object-cover rounded cursor-pointer border border-gray-700 hover:border-royal-gold" onclick="openLightbox('MERCH/PLAYERAS/P2.jpeg')">
+                        <img src="MERCH/PLAYERAS/P3.jpeg" class="w-14 h-14 object-cover rounded cursor-pointer border border-gray-700 hover:border-royal-gold" onclick="openLightbox('MERCH/PLAYERAS/P3.jpeg')">
+                        <img src="MERCH/PLAYERAS/P4.jpeg" class="w-14 h-14 object-cover rounded cursor-pointer border border-gray-700 hover:border-royal-gold" onclick="openLightbox('MERCH/PLAYERAS/P4.jpeg')">
+                        <img src="MERCH/PLAYERAS/P5.jpeg" class="w-14 h-14 object-cover rounded cursor-pointer border border-gray-700 hover:border-royal-gold" onclick="openLightbox('MERCH/PLAYERAS/P5.jpeg')">
+                        <img src="MERCH/PLAYERAS/P6.jpeg" class="w-14 h-14 object-cover rounded cursor-pointer border border-gray-700 hover:border-royal-gold" onclick="openLightbox('MERCH/PLAYERAS/P6.jpeg')">
+                        <img src="MERCH/PLAYERAS/P7.jpeg" class="w-14 h-14 object-cover rounded cursor-pointer border border-gray-700 hover:border-royal-gold" onclick="openLightbox('MERCH/PLAYERAS/P7.jpeg')">
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="font-oswald font-bold text-white text-2xl mb-2">Playera 30 Años</h3>
+                        <div class="text-sm text-gray-400 mb-4 space-y-1 flex-1">
+                            <p><i class="fa-solid fa-shirt mr-2 text-royal-gold"></i> 100% Algodón • Negro</p>
+                            <p><i class="fa-solid fa-print mr-2 text-royal-gold"></i> Estampado en DTF</p>
                         </div>
-                        `);
-                    });
-                </script>
+                        
+                        <!-- Selector de Talla -->
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 uppercase font-bold mb-2">Selecciona Talla:</p>
+                            <div class="flex gap-2 size-selector">
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="CH">CH</button>
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="MED">MED</button>
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="GDE">GDE</button>
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="XL">XL</button>
+                            </div>
+                        </div>
+
+                        <!-- Selector Cantidad -->
+                        <div class="mb-4">
+                            <label class="text-xs text-gray-500 uppercase font-bold mb-2 block">Cantidad:</label>
+                            <input type="number" min="1" max="50" value="1" class="w-full bg-zinc-800 border border-gray-600 text-white py-2 px-3 rounded focus:border-royal-gold outline-none font-bold text-center quantity-input">
+                        </div>
+
+                        <button onclick="addToCartWithSize('prod-playera', 'Playera 30 Años', 300)" class="w-full bg-white text-black py-3 font-bold hover:bg-royal-gold transition rounded uppercase tracking-widest"><i class="fa-solid fa-cart-plus mr-2"></i> Agregar</button>
+                    </div>
+                </div>
+
+                <!-- 2. SUDADERA -->
+                <div class="bg-zinc-900 border border-gray-800 group hover:border-royal-gold transition-all duration-500 rounded-xl overflow-hidden flex flex-col relative product-card" id="prod-sudadera">
+                    <div class="aspect-square bg-gray-800 relative cursor-pointer overflow-hidden" onclick="openLightbox('MERCH/SUDADERA/S1.jpeg')">
+                        <img src="MERCH/SUDADERA/S1.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.style.backgroundColor='#333'">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition"></div>
+                        <div class="absolute top-4 right-4 bg-royal-gold text-black font-bold px-3 py-1 text-sm rounded shadow-lg">$500</div>
+                    </div>
+
+                    <!-- Miniaturas Sudadera -->
+                    <div class="flex gap-2 p-4 pb-0 overflow-x-auto justify-center">
+                        <img src="MERCH/SUDADERA/S3.jpeg" class="w-16 h-16 object-cover rounded cursor-pointer border border-gray-700 hover:border-royal-gold" onclick="openLightbox('MERCH/SUDADERA/S3.jpeg')">
+                        <img src="MERCH/SUDADERA/S2.jpeg" class="w-16 h-16 object-cover rounded cursor-pointer border border-gray-700 hover:border-royal-gold" onclick="openLightbox('MERCH/SUDADERA/S2.jpeg')">
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="font-oswald font-bold text-white text-2xl mb-2">Sudadera Royal</h3>
+                        <div class="text-sm text-gray-400 mb-4 space-y-1 flex-1">
+                            <p><i class="fa-solid fa-layer-group mr-2 text-royal-gold"></i> Poliéster / Algodón</p>
+                            <p><i class="fa-solid fa-print mr-2 text-royal-gold"></i> Estampado en DTF</p>
+                        </div>
+
+                        <!-- Selector de Talla -->
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 uppercase font-bold mb-2">Selecciona Talla:</p>
+                            <div class="flex gap-2 size-selector">
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="CH">CH</button>
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="MED">MED</button>
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="GDE">GDE</button>
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="XL">XL</button>
+                            </div>
+                        </div>
+
+                        <!-- Selector Cantidad -->
+                        <div class="mb-4">
+                            <label class="text-xs text-gray-500 uppercase font-bold mb-2 block">Cantidad:</label>
+                            <input type="number" min="1" max="50" value="1" class="w-full bg-zinc-800 border border-gray-600 text-white py-2 px-3 rounded focus:border-royal-gold outline-none font-bold text-center quantity-input">
+                        </div>
+
+                        <button onclick="addToCartWithSize('prod-sudadera', 'Sudadera Royal', 500)" class="w-full bg-white text-black py-3 font-bold hover:bg-royal-gold transition rounded uppercase tracking-widest"><i class="fa-solid fa-cart-plus mr-2"></i> Agregar</button>
+                    </div>
+                </div>
+
+                <!-- 3. CHAMARRA BOMBER -->
+                <div class="bg-zinc-900 border border-gray-800 group hover:border-royal-gold transition-all duration-500 rounded-xl overflow-hidden flex flex-col relative product-card" id="prod-bomber">
+                    <div class="aspect-square bg-gray-800 relative cursor-pointer overflow-hidden" onclick="openLightbox('MERCH/BOMBER.jpeg')">
+                        <img src="MERCH/BOMBER.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.style.backgroundColor='#333'">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition"></div>
+                        <div class="absolute top-4 right-4 bg-royal-gold text-black font-bold px-3 py-1 text-sm rounded shadow-lg">$650</div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="font-oswald font-bold text-white text-2xl mb-2">Chamarra Bomber</h3>
+                        <div class="text-sm text-gray-400 mb-4 space-y-1 flex-1">
+                            <p><i class="fa-solid fa-vest mr-2 text-royal-gold"></i> Tipo Bomber • Negro</p>
+                            <p><i class="fa-solid fa-wand-magic-sparkles mr-2 text-royal-gold"></i> Estampados Bordados</p>
+                        </div>
+
+                        <!-- Selector de Talla (Solo M, G, XL) -->
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 uppercase font-bold mb-2">Selecciona Talla:</p>
+                            <div class="flex gap-2 size-selector">
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="MED">MED</button>
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="GDE">GDE</button>
+                                <button onclick="selectSize(this)" class="flex-1 py-2 border border-gray-600 rounded text-sm hover:border-royal-gold hover:text-royal-gold transition" data-size="XL">XL</button>
+                            </div>
+                        </div>
+
+                        <!-- Selector Cantidad -->
+                        <div class="mb-4">
+                            <label class="text-xs text-gray-500 uppercase font-bold mb-2 block">Cantidad:</label>
+                            <input type="number" min="1" max="50" value="1" class="w-full bg-zinc-800 border border-gray-600 text-white py-2 px-3 rounded focus:border-royal-gold outline-none font-bold text-center quantity-input">
+                        </div>
+
+                        <button onclick="addToCartWithSize('prod-bomber', 'Chamarra Bomber', 650)" class="w-full bg-white text-black py-3 font-bold hover:bg-royal-gold transition rounded uppercase tracking-widest"><i class="fa-solid fa-cart-plus mr-2"></i> Agregar</button>
+                    </div>
+                </div>
+
+                <!-- 4. TERMO (Centrado en fila 2) -->
+                <div class="bg-zinc-900 border border-gray-800 group hover:border-royal-gold transition-all duration-500 rounded-xl overflow-hidden flex flex-col relative product-card lg:col-start-1 lg:ml-auto md:w-full" id="prod-termo">
+                    <div class="aspect-square bg-gray-800 relative cursor-pointer overflow-hidden" onclick="openLightbox('MERCH/TERMO.jpeg')">
+                        <img src="MERCH/TERMO.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.style.backgroundColor='#333'">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition"></div>
+                        <div class="absolute top-4 right-4 bg-royal-gold text-black font-bold px-3 py-1 text-sm rounded shadow-lg">$350</div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="font-oswald font-bold text-white text-2xl mb-2">Termo Oficial</h3>
+                        <div class="text-sm text-gray-400 mb-4 space-y-1 flex-1">
+                            <p><i class="fa-solid fa-mug-hot mr-2 text-royal-gold"></i> Capacidad 30 oz</p>
+                            <p><i class="fa-solid fa-temperature-arrow-up mr-2 text-royal-gold"></i> Bebidas frías o calientes</p>
+                            <p><i class="fa-solid fa-print mr-2 text-royal-gold"></i> Estampado DTF UV</p>
+                        </div>
+                        
+                        <!-- Selector Cantidad -->
+                        <div class="mb-4">
+                            <label class="text-xs text-gray-500 uppercase font-bold mb-2 block">Cantidad:</label>
+                            <input type="number" min="1" max="50" value="1" class="w-full bg-zinc-800 border border-gray-600 text-white py-2 px-3 rounded focus:border-royal-gold outline-none font-bold text-center quantity-input">
+                        </div>
+
+                        <button onclick="addToCartWithQty('prod-termo', 'Termo Oficial', 350)" class="w-full bg-white text-black py-3 font-bold hover:bg-royal-gold transition rounded uppercase tracking-widest"><i class="fa-solid fa-cart-plus mr-2"></i> Agregar</button>
+                    </div>
+                </div>
+
+                <!-- 5. PIN METÁLICO (Centrado en fila 2) -->
+                <div class="bg-zinc-900 border border-gray-800 group hover:border-royal-gold transition-all duration-500 rounded-xl overflow-hidden flex flex-col relative product-card lg:col-start-2 lg:mr-auto md:w-full" id="prod-pin">
+                    <div class="aspect-square bg-gray-800 relative cursor-pointer overflow-hidden" onclick="openLightbox('MERCH/PIN_METALICO.jpeg')">
+                        <img src="MERCH/PIN_METALICO.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.style.backgroundColor='#333'">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition"></div>
+                        <div class="absolute top-4 right-4 bg-royal-gold text-black font-bold px-3 py-1 text-sm rounded shadow-lg">$100</div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="font-oswald font-bold text-white text-2xl mb-2">Pin Metálico</h3>
+                        <div class="text-sm text-gray-400 mb-4 space-y-1 flex-1">
+                            <p><i class="fa-solid fa-medal mr-2 text-royal-gold"></i> Color blanco</p>
+                            <p><i class="fa-solid fa-font mr-2 text-royal-gold"></i> Letras rojas con broche</p>
+                        </div>
+                        
+                        <!-- Selector Cantidad -->
+                        <div class="mb-4">
+                            <label class="text-xs text-gray-500 uppercase font-bold mb-2 block">Cantidad:</label>
+                            <input type="number" min="1" max="50" value="1" class="w-full bg-zinc-800 border border-gray-600 text-white py-2 px-3 rounded focus:border-royal-gold outline-none font-bold text-center quantity-input">
+                        </div>
+
+                        <button onclick="addToCartWithQty('prod-pin', 'Pin Metálico', 100)" class="w-full bg-white text-black py-3 font-bold hover:bg-royal-gold transition rounded uppercase tracking-widest"><i class="fa-solid fa-cart-plus mr-2"></i> Agregar</button>
+                    </div>
+                </div>
+
             </div>
         </div>
         <footer class="bg-zinc-900 py-8 text-center text-gray-500 text-sm">
@@ -966,19 +1358,7 @@
         
         let currentTrackIndex = 0;
 
-        // AUTOPLAY ON FIRST SCROLL
-        function handleScrollAutoplay() {
-            if (!hasAutoPlayed) {
-                hasAutoPlayed = true;
-                // Intenta reproducir la primera rola
-                const firstTrack = playlist[0];
-                // Find element in DOM to pass visualizer if needed, or pass null
-                const firstTrackEl = document.querySelector(`.track-item[onclick*="'${firstTrack.title}'"]`);
-                playTrack(firstTrack.title, firstTrack.file, firstTrack.cover, firstTrackEl); 
-                window.removeEventListener('scroll', handleScrollAutoplay);
-            }
-        }
-        window.addEventListener('scroll', handleScrollAutoplay);
+        // SE ELIMINÓ LA REPRODUCCIÓN AUTOMÁTICA AL HACER SCROLL
 
         function playTrack(songName, fileName, coverImage, element) {
             const player = document.getElementById('sticky-player'); // Although hidden in mobile view in older versions, here it is static in section
@@ -1059,7 +1439,7 @@
                 title.innerText = songName;
                 status.innerText = "Listo para reproducir";
                 if(error.name !== "NotAllowedError") {
-                     status.innerText = "Error: Archivo no encontrado";
+                      status.innerText = "Error: Archivo no encontrado";
                 }
             });
 
@@ -1135,19 +1515,75 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        // --- CARRITO ---
+        // --- CARRITO & TIENDA ---
         let cart = [];
 
-        function addToCart(name, price) {
-            const existingItem = cart.find(item => item.name === name);
-            if (existingItem) { existingItem.quantity++; } else { cart.push({ name, price, quantity: 1 }); }
+        // Función para seleccionar talla visualmente
+        function selectSize(btn) {
+            // Quitar selección previa en este contenedor
+            const container = btn.closest('.size-selector');
+            container.querySelectorAll('button').forEach(b => {
+                b.classList.remove('bg-royal-gold', 'text-black', 'border-royal-gold', 'selected-size');
+                b.classList.add('border-gray-600');
+            });
+            // Marcar actual
+            btn.classList.remove('border-gray-600');
+            btn.classList.add('bg-royal-gold', 'text-black', 'border-royal-gold', 'selected-size');
+        }
+
+        // Agregar con validación de talla y cantidad
+        function addToCartWithSize(cardId, name, price) {
+            const card = document.getElementById(cardId);
+            const selectedBtn = card.querySelector('.selected-size');
+            const qtyInput = card.querySelector('.quantity-input');
+            const quantity = parseInt(qtyInput.value) || 1;
+            
+            if (!selectedBtn) {
+                alert("⚠️ Por favor selecciona una talla antes de agregar.");
+                return;
+            }
+            
+            const size = selectedBtn.getAttribute('data-size');
+            addToCart(name, price, size, quantity);
+        }
+
+        // Agregar genérico con cantidad
+        function addToCartWithQty(cardId, name, price) {
+            const card = document.getElementById(cardId);
+            const qtyInput = card.querySelector('.quantity-input');
+            const quantity = parseInt(qtyInput.value) || 1;
+            addToCart(name, price, null, quantity);
+        }
+
+        // Función base agregar al carrito
+        function addToCart(name, price, size = null, quantity = 1) {
+            // Crear ID único para items con talla distinta (Playera M es distinto a Playera G)
+            const itemId = size ? `${name}-${size}` : name;
+            const displayName = size ? `${name} [Talla: ${size}]` : name;
+
+            const existingItem = cart.find(item => item.id === itemId);
+            
+            if (existingItem) { 
+                existingItem.quantity += quantity; 
+            } else { 
+                cart.push({ id: itemId, name: displayName, price, quantity: quantity }); 
+            }
+            
             updateCartUI();
             
+            // Feedback visual en el botón
             const btn = event.currentTarget;
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-check"></i> AGREGADO';
-            btn.classList.remove('bg-royal-blue-metal'); btn.classList.add('bg-green-600');
-            setTimeout(() => { btn.innerHTML = originalText; btn.classList.add('bg-royal-blue-metal'); btn.classList.remove('bg-green-600'); }, 1000);
+            btn.classList.remove('bg-white', 'text-black'); 
+            btn.classList.add('bg-green-600', 'text-white');
+            setTimeout(() => { 
+                btn.innerHTML = originalText; 
+                btn.classList.remove('bg-green-600', 'text-white'); 
+                btn.classList.add('bg-white', 'text-black'); 
+            }, 1000);
+            
+            toggleCart(); // Abrir carrito automáticamente al agregar
         }
 
         function removeFromCart(index) {
@@ -1174,15 +1610,15 @@
                     total += itemTotal;
                     
                     const el = document.createElement('div');
-                    el.className = 'flex justify-between items-center bg-black p-3 rounded border border-gray-800';
+                    el.className = 'flex justify-between items-center bg-black p-3 rounded border border-gray-800 animate-pulse-once';
                     el.innerHTML = `
-                        <div>
+                        <div class="flex-1 pr-4">
                             <h4 class="font-bold text-white text-sm">${item.name}</h4>
                             <p class="text-royal-gold text-xs">$${item.price} x ${item.quantity}</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="font-bold text-white">$${itemTotal}</span>
-                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-white"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-white transition"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     `;
                     cartItemsContainer.appendChild(el);
@@ -1199,29 +1635,30 @@
         function checkout() {
             if (cart.length === 0) return alert("El carrito está vacío.");
             
-            const phone = "525549506090";
-            let message = "Hola, me gustaría realizar el siguiente pedido de Merch Royal Club:\n\n";
+            const phone = "5215566351586";
+            // Mensaje limpio sin iconos
+            let message = "PEDIDO ROYAL CLUB STORE\n\nHola Antonio, me gustaria confirmar la disponibilidad y datos de pago para el siguiente pedido:\n\n";
             let total = 0;
             
             cart.forEach(item => {
-                message += `- ${item.quantity}x ${item.name} ($${item.price * item.quantity})\n`;
+                message += `- ${item.quantity}x ${item.name} | $${item.price * item.quantity}\n`;
                 total += item.price * item.quantity;
             });
             
-            message += `\n*TOTAL: $${total} MXN*`;
-            message += "\n\nQuedo pendiente para el pago y envío.";
+            message += `\nTOTAL A PAGAR: $${total} MXN`;
+            message += "\n\nQuedo en espera de la confirmación. Gracias.";
             
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
 
             // Limpiar carrito y cerrar modal
-            cart = [];
-            updateCartUI();
+            cart = []; 
+            updateCartUI(); 
             toggleCart();
         }
 
         function orderMerch(productName) {
-            const phone = "525549506090";
-            const text = `Hola, quiero comprar merch de Royal Club: *${productName}*. ¿Tienen disponible?`;
+            const phone = "5215566351586";
+            const text = `Hola Antonio, quiero comprar merch de Royal Club: *${productName}*. ¿Tienen disponible?`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
