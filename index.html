@@ -208,8 +208,8 @@
         </nav>
 
         <!-- Hero -->
-        <!-- SE MODIFICÓ AQUÍ: Se cambió 'bg-fixed' por 'bg-scroll md:bg-fixed' para compatibilidad móvil -->
-        <header id="hero" class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-scroll md:bg-fixed bg-no-repeat overflow-hidden">
+        <!-- SE MODIFICÓ AQUÍ: Se cambió 'h-screen' por 'h-auto md:h-screen' y se agregó padding 'py-32 md:py-0' para que en celular se ajuste al contenido y la foto se vea completa -->
+        <header id="hero" class="relative h-auto md:h-screen py-32 md:py-0 flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-scroll md:bg-fixed bg-no-repeat overflow-hidden">
             <div id="hero-overlay" class="absolute inset-0 bg-gradient-to-t from-dark-bg via-royal-navy/50 to-transparent"></div>
             <div class="relative z-10 text-center px-4 max-w-6xl mx-auto reveal active">
                 <p class="text-royal-blue-light font-bold tracking-[0.3em] mb-4 text-sm md:text-lg animate-pulse uppercase">Desde 1994</p>
@@ -220,7 +220,7 @@
                     <a href="#assets" class="px-8 py-4 border-2 border-royal-blue-metal text-white font-bold font-oswald text-lg uppercase hover:bg-royal-blue-metal hover:text-white transition duration-300 shadow-[0_0_15px_rgba(30,58,138,0.5)]">Descargar Assets</a>
                 </div>
             </div>
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-royal-gold"><i class="fa-solid fa-chevron-down text-3xl"></i></div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-royal-gold hidden md:block"><i class="fa-solid fa-chevron-down text-3xl"></i></div>
         </header>
 
         <!-- Biografía Completa -->
